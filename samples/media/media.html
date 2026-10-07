@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="color-scheme" content="light dark">
+    <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
+    <meta name="theme-color" content="#0a0a0a" media="(prefers-color-scheme: dark)">
+    <title>Photos and Video</title>
+
+    <!-- Apply the saved theme before first paint to avoid a flash -->
+    <script>
+        (function () {
+            var saved = null;
+            try { saved = localStorage.getItem('theme'); } catch (e) {}
+            var dark = saved ? saved === 'dark' : window.matchMedia('(prefers-color-scheme: dark)').matches;
+            document.documentElement.setAttribute('data-theme', dark ? 'dark' : 'light');
+        })();
+    </script>
+
+    <link rel="preload" href="../../fonts/Satoshi_Complete (1)/Satoshi_Complete/Fonts/WEB/fonts/Satoshi-Variable.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="stylesheet" href="../../shared/styles.css">
+    <link rel="stylesheet" href="media.css">
+    <script src="../../shared/theme.js" defer></script>
+    <script src="../../shared/video.js" defer></script>
+</head>
+<body>
+    <header class="site-header">
+        <div class="container header-inner">
+            <nav class="site-nav" aria-label="Main"></nav>
+            <button id="theme-toggle" class="theme-toggle" type="button" aria-label="Toggle dark mode"></button>
+        </div>
+    </header>
+
+    <main>
+        <article class="article">
+            <header class="article_header">
+                <h1 class="article_title">Photos and video <span>no borders, no hover</span></h1>
+                <p class="article_meta">Photos are plain and square. Video gets a square pause and play button in the bottom-right corner.</p>
+            </header>
+
+            <div class="article_body">
+                <h2>Photos</h2>
+                <p>Photos have no border, no rounded corners and no hover effect. A caption sits underneath in the muted gray.</p>
+
+                <figure class="figure">
+                    <img src="../../state/alabama/images/sweet-home-alabama.jpg" width="2560" height="1440" alt="Green highway sign reading Welcome to Sweet Home Alabama, with pine trees and blue sky behind it">
+                    <figcaption>A welcome sign on the road into Alabama.</figcaption>
+                </figure>
+
+                <h2>Video</h2>
+                <p>
+                    This video starts on its own, muted and looping, like a hero video. The square button in the corner pauses and plays it.
+                    If your system is set to reduce motion, it starts paused instead. Tab to the button to see its focus ring, and hover it
+                    to see the accent color.
+                </p>
+
+                <figure class="figure">
+                    <div class="video">
+                        <video class="video__el" autoplay muted loop playsinline preload="metadata" aria-label="A short nature clip of a flower">
+                            <source src="video/flower.webm" type="video/webm">
+                            <source src="video/flower.mp4" type="video/mp4">
+                            Your browser does not support video.
+                        </video>
+                        <button class="video__toggle" type="button" aria-label="Pause video">
+                            <svg class="video__icon video__icon--pause" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 3h5v18H5zM14 3h5v18h-5z"/></svg>
+                            <svg class="video__icon video__icon--play" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 3l15 9-15 9z"/></svg>
+                        </button>
+                    </div>
+                    <figcaption>Flower video, public domain (CC0), from the MDN Web Docs examples.</figcaption>
+                </figure>
+
+                <p>The pause button also matters for accessibility: anything that moves for more than five seconds should be stoppable.</p>
+            </div>
+        </article>
+    </main>
+</body>
+</html>

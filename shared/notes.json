@@ -1,0 +1,29 @@
+{
+    "mites": {
+        "note": "A free, pre-college STEM outreach program from MIT (MIT Introduction to Technology, Engineering, and Science) for middle and high school students from underserved and underrepresented backgrounds."
+    },
+    "selection": {
+        "note": "The color a browser paints behind text you select with the mouse or keyboard. Sites can restyle it with the ::selection CSS pseudo-element."
+    },
+    "cheaha": {
+        "note": "Alabama's highest point at 2,413 feet, in the Talladega National Forest, in the southern Appalachians."
+    },
+    "black-belt": {
+        "note": "A crescent of dark, fertile prairie soil across central Alabama. The name first described the soil, and later became tied to the region's history and its majority-Black communities."
+    },
+    "marshall": {
+        "note": "NASA's Huntsville field center, established in 1960. Its engineers led development of the Saturn V rocket that carried Apollo astronauts to the Moon."
+    },
+    "edmund-pettus": {
+        "note": "The Selma bridge where state troopers attacked voting-rights marchers on March 7, 1965, a day known as Bloody Sunday."
+    },
+    "tuskegee": {
+        "note": "Site of Tuskegee Institute, founded in 1881 and led by Booker T. Washington. Scientist George Washington Carver taught there, and during World War II it trained the Tuskegee Airmen, the first Black military pilots in the U.S. Army Air Forces."
+    },
+    "mardi-gras": {
+        "note": "Mobile first celebrated in 1703 and is generally credited with America's oldest Mardi Gras."
+    },
+    "jubilee": {
+        "note": "A rare event on Mobile Bay in which fish, crabs and shrimp crowd the shallows at once, usually when low-oxygen water pushes them toward shore."
+    }
+}

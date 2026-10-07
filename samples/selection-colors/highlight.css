@@ -1,0 +1,175 @@
+/* Selection color options. Loaded after styles.css, which supplies the
+   theme tokens, the note highlight, the corner card and the glossary.
+
+   Each option sets two values per theme:
+     --sel-text   text color while selected
+     --sel-bg     background while selected
+   (--sel-deco is optional, for an underline-only option.)
+   Dark values keep the hue of the light ones, with lightness flipped so the
+   selection still stands out on #0a0a0a. */
+
+/* ---------- Apply the variables ---------- */
+
+.row {
+    --sel-deco: none;
+}
+
+.row ::selection {
+    background: var(--sel-bg);
+    color: var(--sel-text);
+    text-decoration: var(--sel-deco);
+}
+
+/* ---------- Options: light ---------- */
+
+.sel-a { --sel-text: #46669b; --sel-bg: #ebf0f6; }   /* Harvard Admissions */
+.sel-b { --sel-text: #ffffff; --sel-bg: #1e1e1e; }   /* Harvard official */
+.sel-c { --sel-text: #b02458; --sel-bg: #fbe3ec; }   /* pink tint */
+.sel-d { --sel-text: #a8222b; --sel-bg: #fbe4e5; }   /* red tint */
+.sel-e { --sel-text: #164f9c; --sel-bg: #e3eefb; }   /* blue tint */
+.sel-f { --sel-text: #ffffff; --sel-bg: #d63a70; }   /* solid pink */
+.sel-g { --sel-text: #1d6b4a; --sel-bg: #dff3ea; }   /* mint */
+.sel-h { --sel-text: #5c3b00; --sel-bg: #ffe6a3; }   /* amber marker */
+.sel-i { --sel-text: #5b3aa8; --sel-bg: #ece6fa; }   /* violet */
+.sel-j { --sel-text: #e6fbff; --sel-bg: #0f4c5c; }   /* deep teal */
+.sel-k {                                              /* underline only */
+    --sel-text: #000000;
+    --sel-bg: rgba(224, 69, 123, 0.1);
+    --sel-deco: underline wavy #e0457b 2px;
+}
+.sel-l { --sel-text: #8a3b12; --sel-bg: #ffe5d6; }   /* peach */
+.sel-m { --sel-text: #ffffff; --sel-bg: #0a0a0a; }   /* opposite of the theme: the dark theme's bg and text */
+
+/* ---------- Options: dark ---------- */
+
+:root[data-theme='dark'] .sel-a { --sel-text: #a9c3ec; --sel-bg: #1f2d45; }
+:root[data-theme='dark'] .sel-b { --sel-text: #0a0a0a; --sel-bg: #f0f0f0; }
+:root[data-theme='dark'] .sel-c { --sel-text: #ffb3cf; --sel-bg: #4a1730; }
+:root[data-theme='dark'] .sel-d { --sel-text: #ffb0b4; --sel-bg: #4a1a1d; }
+:root[data-theme='dark'] .sel-e { --sel-text: #a9cdfa; --sel-bg: #14305a; }
+:root[data-theme='dark'] .sel-f { --sel-text: #0a0a0a; --sel-bg: #f25f92; }
+:root[data-theme='dark'] .sel-g { --sel-text: #9fe3c3; --sel-bg: #16382a; }
+:root[data-theme='dark'] .sel-h { --sel-text: #ffd980; --sel-bg: #4a3410; }
+:root[data-theme='dark'] .sel-i { --sel-text: #cdb8ff; --sel-bg: #2d1f52; }
+:root[data-theme='dark'] .sel-j { --sel-text: #04252c; --sel-bg: #7fd6e6; }
+:root[data-theme='dark'] .sel-k {
+    --sel-text: #ffffff;
+    --sel-bg: rgba(242, 95, 146, 0.14);
+    --sel-deco: underline wavy #f25f92 2px;
+}
+:root[data-theme='dark'] .sel-l { --sel-text: #ffc9a8; --sel-bg: #4a2a1a; }
+:root[data-theme='dark'] .sel-m { --sel-text: #000000; --sel-bg: #ffffff; }   /* the light theme's bg and text */
+
+/* ---------- Page layout ---------- */
+
+.article {
+    max-width: 72ch;
+    padding-bottom: 2rem;
+}
+
+.article_header {
+    padding: 3rem 0 1rem;
+}
+
+.article_title {
+    margin: 0;
+    font-size: clamp(2.2rem, 6vw, 3.6rem);
+    line-height: 1.05;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+}
+
+.article_title span {
+    display: block;
+    color: var(--c-spot);
+}
+
+.article_meta {
+    margin: 1rem 0 0;
+    padding-top: 0.75rem;
+    border-top: 1px solid var(--text);
+    color: var(--text-muted);
+    font-size: 0.95rem;
+}
+
+.rows {
+    margin: 1.5rem 0 0;
+    padding: 0;
+    list-style: none;
+}
+
+.row {
+    display: grid;
+    grid-template-columns: 2rem 1fr auto auto;
+    align-items: center;
+    gap: 0.5rem 1rem;
+    padding: 0.9rem 0;
+    border-bottom: 1px solid var(--border);
+}
+
+.row__id {
+    color: var(--c-spot);
+    font-weight: 800;
+}
+
+.row__main {
+    min-width: 0;
+}
+
+.row__sentence {
+    margin: 0;
+    font-size: 1.15rem;
+}
+
+.row__name {
+    margin: 0.2rem 0 0;
+    color: var(--text-muted);
+    font-size: 0.82rem;
+}
+
+.row__hex {
+    margin-left: 0.4rem;
+    font-variant-numeric: tabular-nums;
+}
+
+/* Preview chip: shows the selected look at a glance */
+.row__swatch {
+    display: grid;
+    place-items: center;
+    width: 2.6rem;
+    height: 2rem;
+    background: var(--sel-bg);
+    color: var(--sel-text);
+    text-decoration: var(--sel-deco);
+    border: 1px solid var(--border);
+    font-weight: 700;
+    font-size: 0.9rem;
+}
+
+.row__select {
+    padding: 0.3rem 0.8rem;
+    border: 2px solid var(--c-spot);
+    border-radius: var(--radius);
+    background: transparent;
+    color: var(--c-spot);
+    font-size: 0.85rem;
+    font-weight: 700;
+    cursor: pointer;
+    -webkit-user-select: none;
+    user-select: none;
+}
+
+.row__select:hover {
+    background: var(--c-spot);
+    color: var(--on-accent);
+}
+
+@media (max-width: 640px) {
+    .row {
+        grid-template-columns: 2rem 1fr auto;
+    }
+
+    .row__swatch {
+        display: none;
+    }
+}

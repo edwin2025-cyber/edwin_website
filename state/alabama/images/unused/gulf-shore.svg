@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 260" role="img" aria-label="Illustration of a Gulf Coast beach at sunset">
+  <defs>
+    <linearGradient id="dusk" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#f6c28b"/><stop offset="1" stop-color="#e98b8f"/>
+    </linearGradient>
+  </defs>
+  <rect width="400" height="150" fill="url(#dusk)"/>
+  <circle cx="270" cy="120" r="34" fill="#fff3d6"/>
+  <rect y="150" width="400" height="60" fill="#3f8f9b"/>
+  <path d="M0 165 Q50 155 100 165 T200 165 T300 165 T400 165" fill="none" stroke="#9fd3d9" stroke-width="3"/>
+  <path d="M0 185 Q50 175 100 185 T200 185 T300 185 T400 185" fill="none" stroke="#9fd3d9" stroke-width="3"/>
+  <path d="M0 210 Q100 195 200 205 T400 200 L400 260 L0 260 Z" fill="#f1dfb8"/>
+  <!-- sea oats -->
+  <g stroke="#7a8a3a" stroke-width="2" fill="none" stroke-linecap="round">
+    <path d="M60 250 Q58 225 52 212"/><path d="M60 250 Q64 228 72 216"/><path d="M60 250 Q60 224 60 208"/>
+    <path d="M330 250 Q328 228 322 216"/><path d="M330 250 Q334 230 342 220"/><path d="M330 250 Q330 226 330 212"/>
+  </g>
+</svg>

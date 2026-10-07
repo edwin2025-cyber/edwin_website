@@ -1,0 +1,46 @@
+/* Page-specific styles for alabama.html. Loaded after styles.css, which
+   supplies the theme tokens, annotations and glossary. */
+
+/* Accent color for this page (replaces the red from styles.css) */
+:root {
+    --c-spot: #1f6fd1;
+}
+
+/* Dark: same hue (213deg), S 85%, L 66% (see THEME.md) */
+:root[data-theme='dark'] {
+    --c-spot: #5ea1f2;
+}
+
+/* Focus ring: a variation of the button blue. Darker on light, lighter on dark,
+   so it stays visible against the page and the blue fill. */
+:root {
+    --focus: #0a3a7a;
+}
+
+:root[data-theme='dark'] {
+    --focus: #b5d4fb;
+}
+
+/* Pull-quote style fact strip */
+.facts {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+    gap: 1rem;
+    margin: 2rem 0;
+    padding: 1rem 0;
+    border-block: 1px solid var(--border);
+}
+
+.facts dt {
+    color: var(--text-muted);
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+}
+
+.facts dd {
+    margin: 0.15rem 0 0;
+    font-weight: 700;
+    font-size: 1.15rem;
+}

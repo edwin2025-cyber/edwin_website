@@ -1,0 +1,10 @@
+/* Photos and video sample. The image and video styles (.figure, .video,
+   .video__toggle) live in shared/styles.css; this file only sets the accent. */
+
+:root {
+    --c-spot: #d93640;
+}
+
+:root[data-theme='dark'] {
+    --c-spot: #f25f66;
+}

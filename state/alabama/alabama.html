@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="color-scheme" content="light dark">
+    <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
+    <meta name="theme-color" content="#0a0a0a" media="(prefers-color-scheme: dark)">
+    <title>Getting to Know Alabama</title>
+
+    <!-- Apply the saved theme before first paint to avoid a flash -->
+    <script>
+        (function () {
+            var saved = null;
+            try { saved = localStorage.getItem('theme'); } catch (e) {}
+            var dark = saved ? saved === 'dark' : window.matchMedia('(prefers-color-scheme: dark)').matches;
+            document.documentElement.setAttribute('data-theme', dark ? 'dark' : 'light');
+        })();
+    </script>
+
+    <link rel="preload" href="../../fonts/Satoshi_Complete (1)/Satoshi_Complete/Fonts/WEB/fonts/Satoshi-Variable.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="stylesheet" href="../../shared/styles.css">
+    <link rel="stylesheet" href="alabama.css">
+    <script src="../../shared/theme.js" defer></script>
+    <script src="../../shared/notes.js" defer></script>
+    <script src="../../shared/links.js" defer></script>
+</head>
+<body>
+    <header class="site-header">
+        <div class="container header-inner">
+            <nav class="site-nav" aria-label="Main"></nav>
+            <button id="theme-toggle" class="theme-toggle" type="button" aria-label="Toggle dark mode"></button>
+        </div>
+    </header>
+
+    <main>
+        <article class="article">
+            <header class="article_header">
+                <h1 class="article_title">Getting to Know Alabama <span>the Heart of Dixie</span></h1>
+                <p class="article_meta">State profile &middot; Southeastern United States</p>
+            </header>
+
+            <div class="article_body">
+                <p>
+                    Ask people what Alabama is known for and you will get a surprising range of answers: football on autumn Saturdays, rockets
+                    on a test stand, white sand beaches, and some of the most important chapters of the American civil rights movement. It
+                    is a state of about five million people, and it holds more variety than most visitors expect.
+                </p>
+
+                <dl class="facts">
+                    <div><dt>Statehood</dt><dd>Dec. 14, 1819</dd></div>
+                    <div><dt>Capital</dt><dd>Montgomery</dd></div>
+                    <div><dt>Nickname</dt><dd>Yellowhammer State</dd></div>
+                    <div><dt>Highest point</dt><dd>2,413 ft</dd></div>
+                </dl>
+
+                <figure class="figure">
+                    <img src="images/sweet-home-alabama.jpg" width="2560" height="1440" alt="Green highway sign reading Welcome to Sweet Home Alabama, with pine trees and blue sky behind it">
+                    <figcaption>A welcome sign on the road into Alabama.</figcaption>
+                </figure>
+
+                <h2>From the mountains to the Gulf</h2>
+                <p>
+                    Alabama stretches roughly from the foothills of the Appalachians in the north to the Gulf Coast in the south. The
+                    state's high ground is <span class="note" data-key="cheaha">Cheaha Mountain</span>,
+                    and from there the land slopes through rolling piedmont, then across the
+                    <span class="note" data-key="black-belt">Black Belt</span>,
+                    before flattening into pine forests and the wetlands of the delta near Mobile.
+                </p>
+
+                <h2>The Rocket City</h2>
+                <p>
+                    In the north, Huntsville grew from a cotton town into a center of space science. Engineers at the
+                    <span class="note" data-key="marshall">Marshall Space Flight Center</span>
+                    helped send people to the Moon, and the city is still packed with aerospace and engineering jobs. It is not unusual to see
+                    a full-size rocket standing near the highway, and you can see a Saturn V up close at the
+                    <a class="link" href="https://www.rocketcenter.com/">U.S. Space &amp; Rocket Center</a>.
+                </p>
+
+                <figure class="figure">
+                    <img src="images/saturn-v.jpg" width="3681" height="2480" loading="lazy" alt="A Saturn V rocket standing upright at dusk outside the U.S. Space &amp; Rocket Center in Huntsville">
+                    <figcaption>A Saturn V at the U.S. Space &amp; Rocket Center in Huntsville, where engineers shaped the rocket that powered the Apollo missions.</figcaption>
+                </figure>
+
+                <h2>A place that changed the country</h2>
+                <p>
+                    The civil rights movement runs straight through Alabama. In Montgomery, the 1955 bus boycott showed what sustained
+                    organizing could do. In 1965, marchers set out from Selma and were stopped at the
+                    <span class="note" data-key="edmund-pettus">Edmund Pettus Bridge</span>,
+                    images from which helped push Congress to pass the Voting Rights Act.
+                </p>
+                <p>
+                    Education and ambition have deep roots here too.
+                    <span class="note" data-key="tuskegee">Tuskegee</span>
+                    became a national symbol of Black achievement, and the Airmen trained there proved their skill in the skies over Europe.
+                </p>
+
+                <h2>Life on the coast</h2>
+                <p>
+                    Down south, the pace changes. Mobile is a port city with a French and Spanish past, and it holds
+                    <span class="note" data-key="mardi-gras">Mardi Gras</span>
+                    parades every winter. Across the bay, the shoreline is lined with fishing piers, oyster shacks and sugar-white beaches.
+                    On a few summer mornings, locals are lucky enough to see a
+                    <span class="note" data-key="jubilee">jubilee</span>
+                    and fill their coolers.
+                </p>
+
+                <figure class="figure">
+                    <img src="images/gulf-shores.jpg" width="1400" height="1050" loading="lazy" alt="Waves rolling onto the beach at sunset in Gulf Shores, with condo towers along the shoreline">
+                    <figcaption>The Alabama coast is short, but it draws visitors from all over the South.</figcaption>
+                </figure>
+
+                <h2>Why it matters</h2>
+                <p>
+                    Alabama is easy to reduce to a single story, and that is exactly the mistake. Spend a week here and you could tour a
+                    space museum, walk across a historic bridge, and end the trip with your feet in the Gulf. Each of those places is worth
+                    a closer look, and the notes below are a good place to start.
+                </p>
+
+                <p class="cta"><button class="btn" type="button">Learn more</button></p>
+            </div>
+
+            <section class="glossary" aria-labelledby="glossary-title">
+                <h2 id="glossary-title" class="glossary__title">Glossary</h2>
+                <ul class="glossary__list"></ul>
+            </section>
+        </article>
+    </main>
+
+    <footer class="site-footer">
+        <div class="container footer-inner">
+            <nav class="footer-nav" aria-label="Footer">
+                <a class="footer-link" href="#" data-placeholder>Help</a>
+                <a class="footer-link" href="#" data-placeholder>About</a>
+                <a class="footer-link" href="#" data-placeholder>Contact</a>
+                <a class="footer-link" href="#" data-placeholder>Privacy</a>
+                <a class="footer-link" href="https://www.alabama.travel/" target="_blank" rel="noopener noreferrer">Visit Alabama</a>
+            </nav>
+        </div>
+    </footer>
+</body>
+</html>

@@ -1,0 +1,946 @@
+/* ---------- Font ---------- */
+
+@font-face {
+    font-family: 'Satoshi';
+    src: url('../fonts/Satoshi_Complete (1)/Satoshi_Complete/Fonts/WEB/fonts/Satoshi-Variable.woff2') format('woff2'),
+         url('../fonts/Satoshi_Complete (1)/Satoshi_Complete/Fonts/WEB/fonts/Satoshi-Variable.woff') format('woff');
+    font-weight: 300 900;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Satoshi';
+    src: url('../fonts/Satoshi_Complete (1)/Satoshi_Complete/Fonts/WEB/fonts/Satoshi-VariableItalic.woff2') format('woff2'),
+         url('../fonts/Satoshi_Complete (1)/Satoshi_Complete/Fonts/WEB/fonts/Satoshi-VariableItalic.woff') format('woff');
+    font-weight: 300 900;
+    font-style: italic;
+    font-display: swap;
+}
+
+/* ---------- Theme tokens ---------- */
+
+:root {
+    --font-sans: 'Satoshi', system-ui, -apple-system, 'Segoe UI', sans-serif;
+
+    --bg: #ffffff;
+    --surface: #ffffff;
+    --text: #000000;
+    --text-muted: #6b5f65;
+    --border: #e3e3e6;
+    --accent: #18181a;
+    --accent-text: #ffffff;
+
+    --c-spot: #d93640;
+    --sel-bg: #0a0a0a;
+    --sel-text: #ffffff;
+    --on-accent: #ffffff;
+    --wash: 12%;
+    --tint: 14%;
+    --tint-strong: 32%;
+
+    /* Layout */
+    --container: 1100px;                          /* site width (header, footer, wide layouts) */
+    --measure: 68ch;                              /* reading width for articles */
+    --gutter: clamp(1rem, 4vw, 2rem);             /* side padding: 16px on phones, 32px on desktop */
+    --header-h: 56px;                             /* 64px from 641px up (see the media query below) */
+    --radius: 0;                                  /* square corners everywhere */
+
+    /* Spacing scale (4px base). Use these instead of ad-hoc rem values. */
+    --space-1: 0.25rem;   /*  4px */
+    --space-2: 0.5rem;    /*  8px */
+    --space-3: 0.75rem;   /* 12px */
+    --space-4: 1rem;      /* 16px */
+    --space-5: 1.5rem;    /* 24px */
+    --space-6: 2rem;      /* 32px */
+    --space-7: 3rem;      /* 48px */
+    --space-8: 4rem;      /* 64px */
+    --space-9: 6rem;      /* 96px */
+
+    /* Type scale. Fluid: each size grows with the screen between a phone and a desktop value. */
+    --fs-title: clamp(1.875rem, 1rem + 4vw, 4rem);          /* 30px phone -> 64px desktop */
+    --fs-h2: clamp(1.25rem, 1.05rem + 1vw, 1.5rem);         /* 20px -> 24px */
+    --fs-body: clamp(1rem, 0.95rem + 0.25vw, 1.1rem);       /* 16px -> 17.6px */
+    --fs-small: clamp(0.875rem, 0.85rem + 0.15vw, 0.95rem); /* 14px -> 15.2px */
+
+    color-scheme: light;
+}
+
+:root[data-theme='dark'] {
+    --bg: #0a0a0a;
+    --surface: #141414;
+    --text: #ffffff;
+    --text-muted: #a3a3a3;
+    --border: #2a2a2a;
+    --accent: #ffffff;
+    --accent-text: #0a0a0a;
+
+    --c-spot: #f25f66;
+    --sel-bg: #ffffff;
+    --sel-text: #000000;
+    --on-accent: #0a0a0a;
+    --wash: 18%;
+    --tint: 20%;
+    --tint-strong: 38%;
+
+    color-scheme: dark;
+}
+
+/* Breakpoints (CSS variables can't be used inside media queries, so these are the agreed values):
+     phone    up to 640px      single column, smaller type, inline [text] notes
+     tablet   641px to 1023px  header grows to 64px
+     desktop  1024px and up    full type size, corner card notes
+   640px is also hard-coded in shared/notes.js (matchMedia). Keep the two in sync. */
+@media (min-width: 641px) {
+    :root {
+        --header-h: 64px;
+    }
+}
+
+/* Text selection: the opposite of the theme (dark on light, light on dark) */
+::selection {
+    background: var(--sel-bg);
+    color: var(--sel-text);
+}
+
+/* ---------- Reset ---------- */
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+}
+
+body {
+    margin: 0;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--font-sans);
+    font-size: 1rem;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+/* Form controls don't inherit fonts by default */
+button,
+input,
+select,
+textarea {
+    font: inherit;
+    color: inherit;
+}
+
+img,
+svg,
+video {
+    display: block;
+    max-width: 100%;
+}
+
+a {
+    color: inherit;
+}
+
+:focus-visible {
+    outline: 2px solid var(--focus, var(--text));
+    outline-offset: 3px;
+}
+
+/* ---------- Layout ---------- */
+
+.container {
+    width: 100%;
+    max-width: var(--container);
+    margin-inline: auto;
+    padding-inline: var(--gutter);
+}
+
+main {
+    flex: 1;
+}
+
+/* ---------- Header ---------- */
+
+.site-header {
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    background: var(--surface);
+    border-bottom: 1px solid var(--border);
+}
+
+.header-inner {
+    display: flex;
+    align-items: center;
+    gap: var(--space-5);
+    min-height: var(--header-h);
+}
+
+.site-nav {
+    display: flex;
+    gap: 1.25rem;
+    margin-right: auto;
+}
+
+/* ---------- Article typography ---------- */
+/* Heading, body size and line-height settings taken from the Alabama page, now fluid:
+   sizes shrink on phones and grow on desktop (see the type scale tokens above). */
+
+.article {
+    max-width: var(--measure);
+    margin-inline: auto;
+    padding: 0 var(--gutter) var(--space-6);
+    font-weight: 450;
+}
+
+.article_header {
+    padding: clamp(var(--space-6), 6vw, var(--space-8)) 0 var(--space-5);
+}
+
+.article_title {
+    margin: 0;
+    font-size: var(--fs-title);
+    line-height: 1.05;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    overflow-wrap: break-word;
+}
+
+.article_title span {
+    display: block;
+    color: var(--c-spot);
+}
+
+.article_meta {
+    margin: var(--space-5) 0 0;
+    padding-top: var(--space-3);
+    border-top: 1px solid var(--text);
+    color: var(--text-muted);
+    font-size: var(--fs-small);
+}
+
+.article_body {
+    font-size: var(--fs-body);
+}
+
+.article_body h2 {
+    margin: clamp(var(--space-6), 5vw, var(--space-7)) 0 var(--space-2);
+    font-size: var(--fs-h2);
+    font-weight: 700;
+    line-height: 1.25;
+}
+
+.article_body p {
+    margin: 0 0 var(--space-4);
+}
+/* ---------- Browser UI: form controls, caret, scrollbar, tap flash ---------- */
+/* All of these follow the page accent (--c-spot), so they change per page and theme. */
+
+html {
+    accent-color: var(--c-spot);        /* checkboxes, radios, range sliders, progress */
+    caret-color: var(--c-spot);         /* the blinking text cursor in inputs */
+    scrollbar-color: color-mix(in srgb, var(--text) 85%, var(--bg)) var(--bg);   /* page scrollbar: theme colors (black/white), not the accent */
+    scrollbar-width: thin;
+    -webkit-tap-highlight-color: color-mix(in srgb, var(--c-spot) 20%, transparent);   /* phone tap flash */
+}
+
+/* Scrollbars inside the article (e.g. the form's text box) use the accent.
+   scrollbar-color is inherited, so setting it here covers every scroll box in the article. */
+.article {
+    scrollbar-color: color-mix(in srgb, var(--c-spot) 75%, var(--bg)) var(--bg);
+}
+
+/* Safari and older browsers without scrollbar-color */
+@supports not (scrollbar-color: auto) {
+    ::-webkit-scrollbar {
+        width: 10px;
+        height: 10px;
+    }
+
+    ::-webkit-scrollbar-track {
+        background: var(--bg);
+    }
+
+    ::-webkit-scrollbar-thumb {
+        background: color-mix(in srgb, var(--text) 85%, var(--bg));
+    }
+
+    .article ::-webkit-scrollbar-thumb {
+        background: color-mix(in srgb, var(--c-spot) 75%, var(--bg));
+    }
+}
+
+/* ---------- Forms ---------- */
+
+.form {
+    display: grid;
+    gap: 1.25rem;
+    margin-top: 1rem;
+}
+
+.form fieldset {
+    margin: 0;
+    padding: 0;
+    border: 0;
+}
+
+.form label,
+.form legend {
+    display: block;
+    margin-bottom: 0.35rem;
+    padding: 0;
+    font-size: 0.9rem;
+    font-weight: 600;
+}
+
+.form input[type='text'],
+.form textarea,
+.form select {
+    width: 100%;
+    padding: 0.6rem 0.75rem;
+    border: 1px solid var(--text-muted);
+    border-radius: 0;
+    background: var(--surface);
+    color: var(--text);
+    font: inherit;
+}
+
+.form textarea {
+    min-height: 8rem;
+    resize: vertical;
+}
+
+.form input[type='range'] {
+    width: 100%;
+}
+
+.choices {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem 1.5rem;
+}
+
+.choice {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin: 0;
+    font-weight: 450;
+    cursor: pointer;
+}
+
+.choice input {
+    width: 1.1rem;
+    height: 1.1rem;
+    margin: 0;
+}
+
+/* ---------- Button (accent outline) ---------- */
+/* Square, 2px accent border and accent text. Fills with the accent on hover.
+   Chosen from the button options page (variation C). */
+
+.cta {
+    margin: var(--space-6) 0 0;
+}
+
+.btn {
+    display: inline-block;
+    min-height: 44px;
+    padding: 0.75rem 1.75rem;
+    border: 2px solid var(--c-spot);
+    border-radius: 0;
+    background: transparent;
+    color: var(--c-spot);
+    font-size: 1rem;
+    font-weight: 700;
+    line-height: 1.2;
+    text-decoration: none;
+    cursor: pointer;
+    transition: background-color 0.18s ease, color 0.18s ease, border-color 0.18s ease;
+}
+
+.btn:hover {
+    background: var(--c-spot);
+    color: var(--on-accent);
+}
+
+.btn:active {
+    background: color-mix(in srgb, var(--c-spot) 80%, var(--text));
+    border-color: color-mix(in srgb, var(--c-spot) 80%, var(--text));
+    color: var(--on-accent);
+}
+
+.btn:disabled {
+    opacity: 0.45;
+    cursor: not-allowed;
+    background: transparent;
+    color: var(--c-spot);
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .btn,
+    .theme-toggle {
+        transition: none;
+    }
+}
+
+/* ---------- Touch targets ---------- */
+/* On touch screens, make tappable things at least 44px tall. */
+
+@media (pointer: coarse) {
+    .btn,
+    .theme-toggle {
+        min-height: 44px;
+    }
+
+    .footer-link {
+        padding-block: 0.6rem;
+    }
+}
+
+/* ---------- Highlight: flat tinted block ---------- */
+/* A light tinted block that gets
+   darker on hover, keyboard focus, or when its glossary entry is hovered.
+   The darker state only applies on wide screens; on phones it stays light. */
+
+.note {
+    padding: 2px 3px;
+    margin: 0 2px;
+    background: color-mix(in srgb, var(--c-spot) var(--tint), transparent);
+    -webkit-box-decoration-break: clone;
+    box-decoration-break: clone;
+    cursor: help;
+    scroll-margin-top: 40vh;
+    transition: background-color 0.2s ease;
+}
+
+@media (min-width: 641px) {
+    .note:hover,
+    .note:focus-within,
+    .note.is-linked {
+        background: color-mix(in srgb, var(--c-spot) var(--tint-strong), transparent);
+    }
+}
+.note__term:focus-visible {
+    outline: none;
+}
+
+/* Superscript number */
+.note__sup {
+    margin-left: 2px;
+    font-size: 0.65em;
+    line-height: 0;
+}
+
+.note__num {
+    color: var(--text);
+    font-weight: 700;
+    text-decoration: none;
+    border-bottom: 1px solid var(--c-spot);
+    transition: color 0.15s ease;
+}
+
+.note__num:hover {
+    color: var(--c-spot);
+}
+
+/* ---------- Corner box: retro offset card ---------- */
+
+.note__popup {
+    position: fixed;
+    right: 1.75rem;
+    bottom: 1.75rem;
+    z-index: 20;
+    width: min(330px, calc(100vw - 3.5rem));
+    padding: 1rem 1.1rem 1.1rem;
+    background: var(--surface);
+    border: 2px solid var(--text);
+    border-radius: 0;
+    box-shadow: 7px 7px 0 var(--c-spot);
+    font-size: 0.98rem;
+    line-height: 1.5;
+    cursor: auto;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateX(14px) rotate(-1.5deg);
+    transition: opacity 0.18s ease, transform 0.22s ease, visibility 0.18s;
+}
+
+.note:hover .note__popup,
+.note:focus-within .note__popup {
+    opacity: 1;
+    visibility: visible;
+    transform: rotate(-1deg);
+}
+
+.note__label {
+    display: inline-block;
+    margin-bottom: 0.55rem;
+    padding: 1px 8px;
+    background: var(--c-spot);
+    color: var(--on-accent);
+    font-size: 0.78rem;
+    font-weight: 800;
+    letter-spacing: 0.06em;
+}
+
+/* ---------- Small screens: inline [text], light tint kept ---------- */
+
+@media (max-width: 640px) {
+    .note__popup,
+    .note:hover .note__popup,
+    .note:focus-within .note__popup {
+        position: static;
+        display: none;
+        width: auto;
+        padding: 0;
+        border: 0;
+        background: transparent;
+        box-shadow: none;
+        font-size: inherit;
+        opacity: 1;
+        visibility: visible;
+        transform: none;
+    }
+
+    .note__popup::before,
+    .note__popup::after {
+        color: var(--c-spot);
+        font-weight: 800;
+    }
+
+    .note__popup::before {
+        content: '[';
+    }
+
+    .note__popup::after {
+        content: ']';
+    }
+
+    .note__label {
+        display: none;
+    }
+
+    .note.is-open .note__popup,
+    .note.is-open:hover .note__popup,
+    .note.is-open:focus-within .note__popup {
+        display: inline;
+    }
+}
+
+/* ---------- Glossary ---------- */
+
+.glossary {
+    margin-top: 4rem;
+    padding-top: 2rem;
+    border-top: 2px solid var(--text);
+    min-height: 60vh;
+}
+
+.glossary__title {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+}
+
+.glossary__list {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.glossary__item {
+    display: grid;
+    grid-template-columns: 2.5rem 1fr;
+    padding: 0.5rem 0.6rem 0.5rem 0;
+    scroll-margin-top: 40vh;
+    transition: background-color 0.2s ease;
+}
+
+.glossary__item.is-linked {
+    background: color-mix(in srgb, var(--c-spot) var(--wash), transparent);
+}
+
+.glossary__num {
+    padding-left: 0.4rem;
+    color: var(--c-spot);
+    font-weight: 800;
+}
+
+.glossary__term {
+    font-weight: 700;
+}
+
+.glossary__back {
+    margin-left: 0.25rem;
+    text-decoration: none;
+    border-bottom: 1px solid var(--c-spot);
+    transition: color 0.15s ease;
+}
+
+.glossary__back:hover {
+    color: var(--c-spot);
+}
+
+.glossary__error {
+    padding: 0.75rem 1rem;
+    border: 2px dashed var(--c-spot);
+    color: var(--text-muted);
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .note,
+    .note__popup {
+        transition: none;
+    }
+}
+
+/* ---------- Links ---------- */
+
+/* Article link: underline in the page accent, text turns accent on hover.
+   Visited links look identical to unvisited ones. */
+.link,
+.link:visited {
+    color: var(--text);
+    font-weight: 520;
+    text-decoration: underline;
+    text-decoration-color: var(--c-spot);
+    text-decoration-thickness: 1px;
+    text-underline-offset: 3px;
+    transition: color 0.15s ease;
+}
+
+.link:hover {
+    color: var(--c-spot);
+}
+
+/* Pointer-following rectangle that shows a link's short address.
+   Colors are the opposite of the theme (same pair as text selection). */
+.link-tip {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 50;
+    padding: 4px 9px;
+    background: var(--sel-bg);
+    color: var(--sel-text);
+    border-radius: 0;
+    font-size: 0.8rem;
+    font-weight: 600;
+    line-height: 1.4;
+    white-space: nowrap;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.12s ease;
+}
+
+.link-tip.is-visible {
+    opacity: 1;
+}
+
+/* ---------- Footer ---------- */
+
+/* Only footers that actually have links get the rule and spacing */
+.site-footer:has(.footer-nav) {
+    margin-top: 3rem;
+    border-top: 1px solid var(--border);
+}
+
+.footer-inner {
+    padding-block: 1.5rem;
+}
+
+.footer-nav {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem 1.75rem;
+}
+
+/* Footer link: bolder text that fades a little on hover. An arrow is hidden at
+   rest and slides out from the end of the word on hover (it sits outside the
+   text flow, so nothing shifts). Right arrow = same tab; northeast arrow
+   (plus the address rectangle) = new tab. */
+.footer-link,
+.footer-link:visited {
+    position: relative;
+    display: inline-block;
+    color: var(--text);
+    font-weight: 600;
+    text-decoration: none;
+    transition: color 0.25s ease;
+}
+
+.footer-link:hover {
+    color: color-mix(in srgb, var(--text) 55%, transparent);
+}
+
+.footer-link .arrow {
+    position: absolute;
+    left: 100%;
+    top: 50%;
+    width: 0.7em;
+    height: 0.7em;
+    margin: -0.35em 0 0 0.25em;
+    color: var(--c-spot);            /* matches the page accent */
+    opacity: 0;
+    clip-path: inset(0 100% 0 0);    /* hidden: wiped away from the left */
+    transition:
+        opacity 0.35s ease,
+        clip-path 0.45s cubic-bezier(0.25, 0.8, 0.25, 1),
+        transform 0.45s cubic-bezier(0.25, 0.8, 0.25, 1);
+    pointer-events: none;
+}
+
+/* Start flush with the end of the word (not over the text), then glide a short way out */
+.footer-link .arrow--right {
+    transform: translateX(-0.25em);
+}
+
+.footer-link .arrow--ne {
+    transform: translate(-0.25em, 0.25em);
+}
+
+.footer-link:hover .arrow,
+.footer-link:focus-visible .arrow {
+    opacity: 1;
+    clip-path: inset(0 0 0 0);       /* revealed left to right */
+    transform: none;
+}
+@media (prefers-reduced-motion: reduce) {
+    .footer-link,
+    .link-tip {
+        transition: none;
+    }
+
+    /* Reduced motion: no sliding or wiping, but keep a gentle fade */
+    .footer-link .arrow,
+    .footer-link .arrow--right,
+    .footer-link .arrow--ne {
+        transform: none;
+        clip-path: none;
+        transition: opacity 0.4s ease;
+    }
+}
+
+/* ---------- Theme toggle (same accent outline as .btn) ---------- */
+
+.theme-toggle {
+    padding: 0.4rem 0.85rem;
+    border: 2px solid var(--c-spot);
+    border-radius: var(--radius);
+    background: transparent;
+    color: var(--c-spot);
+    font-weight: 700;
+    cursor: pointer;
+    transition: background-color 0.18s ease, color 0.18s ease;
+}
+
+.theme-toggle:hover {
+    background: var(--c-spot);
+    color: var(--on-accent);
+}
+@media (prefers-reduced-motion: reduce) {
+    html {
+        scroll-behavior: auto;
+    }
+
+    body {
+        transition: none;
+    }
+}
+
+/* ---------- Second button: solid in the website theme colors ---------- */
+/* Pair with .btn. .btn is the accent outline (the article's color); .btn--solid
+   is a flat fill in the theme colors (black on light, white on dark). */
+
+.btn-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-3);
+}
+
+.btn--solid {
+    background: var(--text);
+    border-color: var(--text);
+    color: var(--bg);
+}
+
+.btn--solid:hover {
+    background: color-mix(in srgb, var(--text) 80%, var(--bg));
+    border-color: color-mix(in srgb, var(--text) 80%, var(--bg));
+    color: var(--bg);
+}
+
+.btn--solid:active {
+    background: color-mix(in srgb, var(--text) 65%, var(--bg));
+    border-color: color-mix(in srgb, var(--text) 65%, var(--bg));
+    color: var(--bg);
+}
+
+.btn--solid:disabled {
+    background: var(--text);
+    color: var(--bg);
+}
+/* ---------- Images and video ---------- */
+/* Photos: square, no border, no hover effect. */
+
+.figure {
+    margin: var(--space-6) 0;
+}
+
+.figure img {
+    width: 100%;
+    height: auto;
+}
+
+.figure figcaption {
+    margin-top: var(--space-2);
+    color: var(--text-muted);
+    font-size: var(--fs-small);
+    line-height: 1.4;
+}
+
+.figure--side {
+    max-width: 320px;
+    margin-inline: auto;
+}
+
+/* Video with a square pause/play button in the bottom-right corner.
+   Colors are the opposite of the theme, like the text selection. */
+.video {
+    position: relative;
+    background: #000;
+    line-height: 0;
+}
+
+.video__el {
+    display: block;
+    width: 100%;
+    height: auto;
+}
+
+.video__toggle {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    display: grid;
+    place-items: center;
+    width: clamp(48px, 8vw, 72px);
+    height: clamp(48px, 8vw, 72px);
+    padding: 0;
+    border: 0;
+    border-radius: 0;
+    background: var(--sel-bg);
+    color: var(--sel-text);
+    cursor: pointer;
+    transition: background-color 0.18s ease, color 0.18s ease;
+}
+
+.video__toggle:hover {
+    background: var(--c-spot);
+    color: var(--on-accent);
+}
+
+/* The button sits on the video, so draw the focus ring inside it */
+.video__toggle:focus-visible {
+    outline: 2px solid var(--sel-text);
+    outline-offset: -6px;
+}
+
+.video__toggle:hover:focus-visible {
+    outline-color: var(--on-accent);
+}
+
+.video__icon {
+    width: 38%;
+    height: 38%;
+    fill: currentColor;
+}
+
+/* Show the play icon while paused, the pause icon while playing */
+.video__icon--play {
+    display: none;
+}
+
+.video.is-paused .video__icon--play {
+    display: block;
+}
+
+.video.is-paused .video__icon--pause {
+    display: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .video__toggle {
+        transition: none;
+    }
+}
+
+/* ---------- Print ---------- */
+/* Prints as a clean light page, whatever the screen theme (shared/theme.js also
+   switches to the light theme while printing). Notes print as the glossary at
+   the end; the corner cards and controls are hidden. */
+
+@media print {
+    body {
+        min-height: 0;
+        font-size: 11pt;
+    }
+
+    .site-header,
+    .theme-toggle,
+    .btn,
+    .btn-row,
+    .video__toggle,
+    .note__popup,
+    .note__label,
+    .site-footer:has(.footer-nav) .arrow {
+        display: none !important;
+    }
+
+    .note {
+        background: none;
+        border-bottom: 1px solid #000;
+        padding: 0;
+        margin: 0;
+    }
+
+    /* Show where external links go, since paper can't be clicked */
+    .article_body a.link[href^='http']::after {
+        content: ' (' attr(href) ')';
+        font-size: 0.85em;
+        word-break: break-all;
+    }
+
+    .glossary {
+        min-height: 0;
+        margin-top: var(--space-6);
+        break-inside: avoid;
+    }
+
+    .figure,
+    .codeblock,
+    .table-wrap,
+    blockquote {
+        break-inside: avoid;
+    }
+
+    .article_body h2 {
+        break-after: avoid;
+    }
+
+    .video {
+        display: none;
+    }
+}

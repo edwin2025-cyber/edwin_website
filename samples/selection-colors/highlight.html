@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="color-scheme" content="light dark">
+    <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
+    <meta name="theme-color" content="#0a0a0a" media="(prefers-color-scheme: dark)">
+    <title>Selection Colors</title>
+
+    <!-- Apply the saved theme before first paint to avoid a flash -->
+    <script>
+        (function () {
+            var saved = null;
+            try { saved = localStorage.getItem('theme'); } catch (e) {}
+            var dark = saved ? saved === 'dark' : window.matchMedia('(prefers-color-scheme: dark)').matches;
+            document.documentElement.setAttribute('data-theme', dark ? 'dark' : 'light');
+        })();
+    </script>
+
+    <link rel="preload" href="../../fonts/Satoshi_Complete (1)/Satoshi_Complete/Fonts/WEB/fonts/Satoshi-Variable.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="stylesheet" href="../../shared/styles.css">
+    <link rel="stylesheet" href="highlight.css">
+    <script src="../../shared/theme.js" defer></script>
+    <script src="../../shared/notes.js" defer></script>
+    <script src="highlight.js" defer></script>
+</head>
+<body>
+    <header class="site-header">
+        <div class="container header-inner">
+            <nav class="site-nav" aria-label="Main"></nav>
+            <button id="theme-toggle" class="theme-toggle" type="button" aria-label="Toggle dark mode"></button>
+        </div>
+    </header>
+
+    <main>
+        <article class="article">
+            <header class="article_header">
+                <h1 class="article_title">Selection colors <span>twelve options</span></h1>
+                <p class="article_meta">Drag across a line to try its color, or press its Select button. Toggle the theme to see the dark version.</p>
+            </header>
+
+            <ol class="rows">
+                <li class="row sel-a">
+                    <span class="row__id">A</span>
+                    <div class="row__main">
+                        <p class="row__sentence">This is a sample <span class="note" data-key="selection">text</span> highlight color test.</p>
+                        <p class="row__name">Harvard Admissions <span class="row__hex"></span></p>
+                    </div>
+                    <span class="row__swatch" aria-hidden="true">Aa</span>
+                    <button class="row__select" type="button">Select</button>
+                </li>
+
+                <li class="row sel-b">
+                    <span class="row__id">B</span>
+                    <div class="row__main">
+                        <p class="row__sentence">This is a sample <span class="note" data-key="selection">text</span> highlight color test.</p>
+                        <p class="row__name">Harvard official (inverts in dark) <span class="row__hex"></span></p>
+                    </div>
+                    <span class="row__swatch" aria-hidden="true">Aa</span>
+                    <button class="row__select" type="button">Select</button>
+                </li>
+
+                <li class="row sel-c">
+                    <span class="row__id">C</span>
+                    <div class="row__main">
+                        <p class="row__sentence">This is a sample <span class="note" data-key="selection">text</span> highlight color test.</p>
+                        <p class="row__name">Pink tint (sample page) <span class="row__hex"></span></p>
+                    </div>
+                    <span class="row__swatch" aria-hidden="true">Aa</span>
+                    <button class="row__select" type="button">Select</button>
+                </li>
+
+                <li class="row sel-d">
+                    <span class="row__id">D</span>
+                    <div class="row__main">
+                        <p class="row__sentence">This is a sample <span class="note" data-key="selection">text</span> highlight color test.</p>
+                        <p class="row__name">Red tint (MITES) <span class="row__hex"></span></p>
+                    </div>
+                    <span class="row__swatch" aria-hidden="true">Aa</span>
+                    <button class="row__select" type="button">Select</button>
+                </li>
+
+                <li class="row sel-e">
+                    <span class="row__id">E</span>
+                    <div class="row__main">
+                        <p class="row__sentence">This is a sample <span class="note" data-key="selection">text</span> highlight color test.</p>
+                        <p class="row__name">Blue tint (Alabama) <span class="row__hex"></span></p>
+                    </div>
+                    <span class="row__swatch" aria-hidden="true">Aa</span>
+                    <button class="row__select" type="button">Select</button>
+                </li>
+
+                <li class="row sel-f">
+                    <span class="row__id">F</span>
+                    <div class="row__main">
+                        <p class="row__sentence">This is a sample <span class="note" data-key="selection">text</span> highlight color test.</p>
+                        <p class="row__name">Solid pink <span class="row__hex"></span></p>
+                    </div>
+                    <span class="row__swatch" aria-hidden="true">Aa</span>
+                    <button class="row__select" type="button">Select</button>
+                </li>
+
+                <li class="row sel-g">
+                    <span class="row__id">G</span>
+                    <div class="row__main">
+                        <p class="row__sentence">This is a sample <span class="note" data-key="selection">text</span> highlight color test.</p>
+                        <p class="row__name">Mint <span class="row__hex"></span></p>
+                    </div>
+                    <span class="row__swatch" aria-hidden="true">Aa</span>
+                    <button class="row__select" type="button">Select</button>
+                </li>
+
+                <li class="row sel-h">
+                    <span class="row__id">H</span>
+                    <div class="row__main">
+                        <p class="row__sentence">This is a sample <span class="note" data-key="selection">text</span> highlight color test.</p>
+                        <p class="row__name">Amber marker <span class="row__hex"></span></p>
+                    </div>
+                    <span class="row__swatch" aria-hidden="true">Aa</span>
+                    <button class="row__select" type="button">Select</button>
+                </li>
+
+                <li class="row sel-i">
+                    <span class="row__id">I</span>
+                    <div class="row__main">
+                        <p class="row__sentence">This is a sample <span class="note" data-key="selection">text</span> highlight color test.</p>
+                        <p class="row__name">Violet <span class="row__hex"></span></p>
+                    </div>
+                    <span class="row__swatch" aria-hidden="true">Aa</span>
+                    <button class="row__select" type="button">Select</button>
+                </li>
+
+                <li class="row sel-j">
+                    <span class="row__id">J</span>
+                    <div class="row__main">
+                        <p class="row__sentence">This is a sample <span class="note" data-key="selection">text</span> highlight color test.</p>
+                        <p class="row__name">Deep teal (inverts in dark) <span class="row__hex"></span></p>
+                    </div>
+                    <span class="row__swatch" aria-hidden="true">Aa</span>
+                    <button class="row__select" type="button">Select</button>
+                </li>
+
+                <li class="row sel-k">
+                    <span class="row__id">K</span>
+                    <div class="row__main">
+                        <p class="row__sentence">This is a sample <span class="note" data-key="selection">text</span> highlight color test.</p>
+                        <p class="row__name">Underline only, no fill <span class="row__hex"></span></p>
+                    </div>
+                    <span class="row__swatch" aria-hidden="true">Aa</span>
+                    <button class="row__select" type="button">Select</button>
+                </li>
+
+                <li class="row sel-l">
+                    <span class="row__id">L</span>
+                    <div class="row__main">
+                        <p class="row__sentence">This is a sample <span class="note" data-key="selection">text</span> highlight color test.</p>
+                        <p class="row__name">Peach <span class="row__hex"></span></p>
+                    </div>
+                    <span class="row__swatch" aria-hidden="true">Aa</span>
+                    <button class="row__select" type="button">Select</button>
+                </li>
+
+                <li class="row sel-m">
+                    <span class="row__id">M</span>
+                    <div class="row__main">
+                        <p class="row__sentence">This is a sample <span class="note" data-key="selection">text</span> highlight color test.</p>
+                        <p class="row__name">Opposite of the theme <span class="row__hex"></span></p>
+                    </div>
+                    <span class="row__swatch" aria-hidden="true">Aa</span>
+                    <button class="row__select" type="button">Select</button>
+                </li>
+            </ol>
+
+            <section class="glossary" aria-labelledby="glossary-title">
+                <h2 id="glossary-title" class="glossary__title">Glossary</h2>
+                <ul class="glossary__list"></ul>
+            </section>
+        </article>
+    </main>
+
+    <footer class="site-footer">
+        <div class="container"></div>
+    </footer>
+</body>
+</html>

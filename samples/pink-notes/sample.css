@@ -1,0 +1,356 @@
+/* Standalone sample: pink flat tinted highlight, retro corner box,
+   two-way hover link, notes loaded from notes.json */
+
+/* ---------- Font ---------- */
+
+@font-face {
+    font-family: 'Satoshi';
+    src: url('../../fonts/Satoshi_Complete (1)/Satoshi_Complete/Fonts/WEB/fonts/Satoshi-Variable.woff2') format('woff2'),
+         url('../../fonts/Satoshi_Complete (1)/Satoshi_Complete/Fonts/WEB/fonts/Satoshi-Variable.woff') format('woff');
+    font-weight: 300 900;
+    font-style: normal;
+    font-display: swap;
+}
+
+/* ---------- Tokens ---------- */
+
+:root {
+    --font-sans: 'Satoshi', system-ui, -apple-system, 'Segoe UI', sans-serif;
+
+    --bg: #ffffff;
+    --surface: #ffffff;
+    --text: #000000;
+    --text-muted: #6b5f65;
+    --border: #eadde3;
+
+    --pink: #e0457b;
+    --sel-bg: #0a0a0a;
+    --sel-text: #ffffff;
+    --on-pink: #ffffff;             /* text on solid pink (the "01" chip) */
+    --tint: 14%;                    /* annotation block, resting */
+    --tint-strong: 32%;             /* annotation block, hover / linked */
+    --pink-wash: color-mix(in srgb, var(--pink) 12%, transparent);
+
+    color-scheme: light;
+}
+
+/* Dark theme. Same hue as the light pink (339deg); only lightness,
+   saturation and tint strength change. See THEME.md. */
+:root[data-theme='dark'] {
+    --bg: #0a0a0a;
+    --surface: #141414;             /* bg + ~4% lightness: popup/cards sit above the page */
+    --text: #ffffff;
+    --text-muted: #a3a3a3;          /* neutral gray, ~7.5:1 on --bg */
+    --border: #2a2a2a;
+
+    --pink: #f25f92;                /* 339deg, S 85%, L 66%  (6.4:1 on --bg) */
+    --sel-bg: #ffffff;
+    --sel-text: #000000;
+    --on-pink: #0a0a0a;             /* dark text on pink: 6.4:1 (white would be 3:1) */
+    --tint: 20%;                    /* tints are weaker on dark, so raise them */
+    --tint-strong: 38%;
+    --pink-wash: color-mix(in srgb, var(--pink) 18%, transparent);
+
+    color-scheme: dark;
+}
+
+/* Text selection: the opposite of the theme (dark on light, light on dark) */
+::selection {
+    background: var(--sel-bg);
+    color: var(--sel-text);
+}
+
+/* ---------- Base ---------- */
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--font-sans);
+    font-weight: 450;
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+}
+
+button {
+    font: inherit;
+    color: inherit;
+}
+
+a {
+    color: inherit;
+}
+
+.wrap {
+    width: 100%;
+    max-width: 68ch;
+    margin-inline: auto;
+    padding-inline: 1.25rem;
+}
+
+.site-header {
+    border-bottom: 1px solid var(--border);
+    background: var(--surface);
+}
+
+.header-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    min-height: 60px;
+    max-width: 68ch;
+}
+
+.site-title {
+    font-weight: 700;
+    color: var(--pink);
+}
+
+/* Same accent outline as the shared .btn */
+.theme-toggle {
+    padding: 0.35rem 0.8rem;
+    border: 2px solid var(--pink);
+    border-radius: 0;
+    background: transparent;
+    color: var(--pink);
+    font-weight: 700;
+    cursor: pointer;
+    transition: background-color 0.18s ease, color 0.18s ease;
+}
+
+.theme-toggle:hover {
+    background: var(--pink);
+    color: var(--on-pink);
+}
+
+.article {
+    padding-bottom: 3rem;
+    font-size: 1.1rem;
+}
+
+.title {
+    margin: 3rem 0 1rem;
+    font-size: clamp(2.2rem, 6vw, 3.4rem);
+    line-height: 1.05;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+}
+
+.lede {
+    color: var(--text-muted);
+}
+
+/* ---------- Highlight: flat tinted block ---------- */
+/* A light pink block that gets darker on hover, keyboard focus, or when its
+   glossary entry is hovered. The darker state only applies on wide screens;
+   on phones it stays light. */
+
+.note {
+    padding: 2px 3px;
+    margin: 0 2px;
+    background: color-mix(in srgb, var(--pink) var(--tint), transparent);
+    -webkit-box-decoration-break: clone;
+    box-decoration-break: clone;
+    cursor: help;
+    scroll-margin-top: 40vh;
+    transition: background-color 0.2s ease;
+}
+
+@media (min-width: 641px) {
+    .note:hover,
+    .note:focus-within,
+    .note.is-linked {
+        background: color-mix(in srgb, var(--pink) var(--tint-strong), transparent);
+    }
+}
+
+.note__term:focus-visible {
+    outline: none;
+}
+
+/* Superscript number */
+.note__sup {
+    margin-left: 2px;
+    font-size: 0.65em;
+    line-height: 0;
+}
+
+.note__num {
+    color: var(--text);
+    font-weight: 700;
+    text-decoration: none;
+    border-bottom: 1px solid var(--pink);
+    transition: color 0.15s ease;
+}
+
+.note__num:hover {
+    color: var(--pink);
+}
+
+/* ---------- Corner box: retro offset card ---------- */
+
+.note__popup {
+    position: fixed;
+    right: 1.75rem;
+    bottom: 1.75rem;
+    z-index: 20;
+    width: min(330px, calc(100vw - 3.5rem));
+    padding: 1rem 1.1rem 1.1rem;
+    background: var(--surface);
+    border: 2px solid var(--text);
+    border-radius: 0;
+    box-shadow: 7px 7px 0 var(--pink);
+    font-size: 0.98rem;
+    line-height: 1.5;
+    cursor: auto;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateX(14px) rotate(-1.5deg);
+    transition: opacity 0.18s ease, transform 0.22s ease, visibility 0.18s;
+}
+
+.note:hover .note__popup,
+.note:focus-within .note__popup {
+    opacity: 1;
+    visibility: visible;
+    transform: rotate(-1deg);
+}
+
+.note__label {
+    display: inline-block;
+    margin-bottom: 0.55rem;
+    padding: 1px 8px;
+    background: var(--pink);
+    color: var(--on-pink);
+    font-size: 0.78rem;
+    font-weight: 800;
+    letter-spacing: 0.06em;
+}
+
+/* ---------- Small screens: inline [text], light tint kept ---------- */
+
+@media (max-width: 640px) {
+    .note__popup,
+    .note:hover .note__popup,
+    .note:focus-within .note__popup {
+        position: static;
+        display: none;
+        width: auto;
+        padding: 0;
+        border: 0;
+        background: transparent;
+        box-shadow: none;
+        font-size: inherit;
+        opacity: 1;
+        visibility: visible;
+        transform: none;
+    }
+
+    .note__popup::before,
+    .note__popup::after {
+        color: var(--pink);
+        font-weight: 800;
+    }
+
+    .note__popup::before {
+        content: '[';
+    }
+
+    .note__popup::after {
+        content: ']';
+    }
+
+    .note__label {
+        display: none;
+    }
+
+    .note.is-open .note__popup,
+    .note.is-open:hover .note__popup,
+    .note.is-open:focus-within .note__popup {
+        display: inline;
+    }
+}
+
+/* ---------- Glossary ---------- */
+
+.glossary {
+    margin-top: 4rem;
+    padding-top: 2rem;
+    border-top: 2px solid var(--text);
+    min-height: 60vh;
+}
+
+.glossary__title {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+}
+
+.glossary__list {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.glossary__item {
+    display: grid;
+    grid-template-columns: 2.5rem 1fr;
+    padding: 0.5rem 0.6rem 0.5rem 0;
+    scroll-margin-top: 40vh;
+    transition: background-color 0.2s ease;
+}
+
+.glossary__item.is-linked {
+    background: var(--pink-wash);
+}
+
+.glossary__num {
+    padding-left: 0.4rem;
+    color: var(--pink);
+    font-weight: 800;
+}
+
+.glossary__term {
+    font-weight: 700;
+}
+
+.glossary__back {
+    margin-left: 0.25rem;
+    text-decoration: none;
+    border-bottom: 1px solid var(--pink);
+    transition: color 0.15s ease;
+}
+
+.glossary__back:hover {
+    color: var(--pink);
+}
+
+.glossary__error {
+    padding: 0.75rem 1rem;
+    border: 2px dashed var(--pink);
+    color: var(--text-muted);
+}
+
+@media (prefers-reduced-motion: reduce) {
+    html {
+        scroll-behavior: auto;
+    }
+
+    .note,
+    .note__popup,
+    .theme-toggle {
+        transition: none;
+    }
+}

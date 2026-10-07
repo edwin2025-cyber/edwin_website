@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="color-scheme" content="light dark">
+    <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
+    <meta name="theme-color" content="#0a0a0a" media="(prefers-color-scheme: dark)">
+    <title></title>
+
+    <!-- Apply the saved theme before first paint to avoid a flash -->
+    <script>
+        (function () {
+            var saved = null;
+            try { saved = localStorage.getItem('theme'); } catch (e) {}
+            var dark = saved ? saved === 'dark' : window.matchMedia('(prefers-color-scheme: dark)').matches;
+            document.documentElement.setAttribute('data-theme', dark ? 'dark' : 'light');
+        })();
+    </script>
+
+    <link rel="preload" href="fonts/Satoshi_Complete (1)/Satoshi_Complete/Fonts/WEB/fonts/Satoshi-Variable.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="stylesheet" href="shared/styles.css">
+    <script src="shared/theme.js" defer></script>
+    <script src="mites/mites.js" defer></script>
+    <script src="shared/notes.js" defer></script>
+</head>
+<body>
+    <header class="site-header">
+        <div class="container header-inner">
+            <nav class="site-nav" aria-label="Main"></nav>
+            <button id="theme-toggle" class="theme-toggle" type="button" aria-label="Toggle dark mode"></button>
+        </div>
+    </header>
+
+    <main>
+
+        <article class="article">
+            <div class="article_body">
+                <p>
+                    Learn more about:
+                    <span class="note" data-key="mites">MITES</span>
+                    After visiting the website...
+                </p>
+
+                <h2>Interest form</h2>
+                <p>A demo form so you can see the accent color, text cursor and scrollbar. It does not send anything.</p>
+
+                <form class="form" data-demo>
+                    <div>
+                        <label for="name">Name</label>
+                        <input id="name" type="text" placeholder="Type here to see the cursor color" autocomplete="off">
+                    </div>
+
+                    <fieldset>
+                        <legend>Subjects you like</legend>
+                        <div class="choices">
+                            <label class="choice"><input type="checkbox" checked> Engineering</label>
+                            <label class="choice"><input type="checkbox"> Computer science</label>
+                            <label class="choice"><input type="checkbox"> Biology</label>
+                        </div>
+                    </fieldset>
+
+                    <fieldset>
+                        <legend>Grade</legend>
+                        <div class="choices">
+                            <label class="choice"><input type="radio" name="grade" checked> 9</label>
+                            <label class="choice"><input type="radio" name="grade"> 10</label>
+                            <label class="choice"><input type="radio" name="grade"> 11</label>
+                            <label class="choice"><input type="radio" name="grade"> 12</label>
+                        </div>
+                    </fieldset>
+
+                    <div>
+                        <label for="math">How comfortable are you with math?</label>
+                        <input id="math" type="range" min="1" max="10" value="6">
+                    </div>
+
+                    <div>
+                        <label for="notes">Anything else? (scroll this box to see the scrollbar)</label>
+                        <textarea id="notes">Tell us what you want to build, what you want to learn, and what you would like to try for the first time.
+
+MITES is a free program, so there is no cost to take part. You will take classes, meet other students, and get help thinking about college.
+
+Some students come in loving robots. Others come in not sure what engineering even is. Both are welcome.
+
+Write as much or as little as you like. This box is long on purpose so that it scrolls and the scrollbar shows up in the page accent color.
+
+Another line, so there is more to scroll through.
+
+And one more line to make sure the box overflows.</textarea>
+                    </div>
+
+                    <p class="cta"><button class="btn" type="button">Send</button></p>
+                </form>
+            </div>
+
+            <section class="glossary" aria-labelledby="glossary-title">
+                <h2 id="glossary-title" class="glossary__title">Glossary</h2>
+                <ul class="glossary__list"></ul>
+            </section>
+        </article>
+    </main>
+
+    <footer class="site-footer">
+        <div class="container"></div>
+    </footer>
+</body>
+</html>

@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="color-scheme" content="light dark">
+    <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
+    <meta name="theme-color" content="#0a0a0a" media="(prefers-color-scheme: dark)">
+    <title>Button Options</title>
+
+    <!-- Apply the saved theme before first paint to avoid a flash -->
+    <script>
+        (function () {
+            var saved = null;
+            try { saved = localStorage.getItem('theme'); } catch (e) {}
+            var dark = saved ? saved === 'dark' : window.matchMedia('(prefers-color-scheme: dark)').matches;
+            document.documentElement.setAttribute('data-theme', dark ? 'dark' : 'light');
+        })();
+    </script>
+
+    <link rel="preload" href="../../fonts/Satoshi_Complete (1)/Satoshi_Complete/Fonts/WEB/fonts/Satoshi-Variable.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="stylesheet" href="../../shared/styles.css">
+    <link rel="stylesheet" href="buttons.css">
+    <script src="../../shared/theme.js" defer></script>
+    <script src="buttons.js" defer></script>
+</head>
+<body>
+    <header class="site-header">
+        <div class="container header-inner">
+            <nav class="site-nav" aria-label="Main"></nav>
+            <button id="theme-toggle" class="theme-toggle" type="button" aria-label="Toggle dark mode"></button>
+        </div>
+    </header>
+
+    <main class="container">
+        <header class="page-head">
+            <h1 class="page-title">Button options <span>twelve variations</span></h1>
+            <p class="page-sub">Hover, press and tab to each one. Try the accent colors, the disabled state and the large size, and toggle the theme.</p>
+        </header>
+
+        <section class="controls" aria-label="Preview controls">
+            <div class="control">
+                <span class="control__label" id="accent-label">Accent</span>
+                <div class="accents" role="group" aria-labelledby="accent-label">
+                    <button class="accent" type="button" data-accent="red" aria-pressed="true" style="--c: #d93640"><span class="visually-hidden">Red</span></button>
+                    <button class="accent" type="button" data-accent="blue" aria-pressed="false" style="--c: #1f6fd1"><span class="visually-hidden">Blue</span></button>
+                    <button class="accent" type="button" data-accent="pink" aria-pressed="false" style="--c: #e0457b"><span class="visually-hidden">Pink</span></button>
+                    <button class="accent" type="button" data-accent="lilac" aria-pressed="false" style="--c: #894dcb"><span class="visually-hidden">Lilac</span></button>
+                </div>
+            </div>
+            <label class="control control--check"><input type="checkbox" id="toggle-disabled"> Disabled</label>
+            <label class="control control--check"><input type="checkbox" id="toggle-large"> Large</label>
+            <p class="status" id="status" role="status" aria-live="polite">Click any button to test it.</p>
+        </section>
+
+        <ol class="grid" id="grid">
+            <li class="card">
+                <p class="card__id">A</p>
+                <div class="card__demo"><button class="bx bx--shadow" type="button" data-name="A Solid with hard shadow">Learn more</button></div>
+                <p class="card__name">Solid with hard shadow</p>
+                <p class="card__desc">The current trial. Border, offset shadow, sinks on hover and goes flat when pressed.</p>
+            </li>
+
+            <li class="card">
+                <p class="card__id">B</p>
+                <div class="card__demo"><button class="bx bx--flat" type="button" data-name="B Flat solid">Learn more</button></div>
+                <p class="card__name">Flat solid</p>
+                <p class="card__desc">Plain accent fill, no border or shadow. Darkens on hover.</p>
+            </li>
+
+            <li class="card">
+                <p class="card__id">C</p>
+                <div class="card__demo"><button class="bx bx--outline" type="button" data-name="C Outline">Learn more</button></div>
+                <p class="card__name">Accent outline</p>
+                <p class="card__desc">Accent border and text. Fills with the accent on hover.</p>
+            </li>
+
+            <li class="card">
+                <p class="card__id">D</p>
+                <div class="card__demo"><button class="bx bx--invert" type="button" data-name="D Outline that inverts">Learn more</button></div>
+                <p class="card__name">Black and white outline</p>
+                <p class="card__desc">Theme-colored border. Inverts to a solid fill on hover. Ignores the accent.</p>
+            </li>
+
+            <li class="card">
+                <p class="card__id">E</p>
+                <div class="card__demo"><button class="bx bx--card" type="button" data-name="E Card with accent shadow">Learn more</button></div>
+                <p class="card__name">Card with accent shadow</p>
+                <p class="card__desc">Matches the corner card: theme border, accent offset shadow.</p>
+            </li>
+
+            <li class="card">
+                <p class="card__id">F</p>
+                <div class="card__demo"><button class="bx bx--slide" type="button" data-name="F Underline that fills">Learn more</button></div>
+                <p class="card__name">Underline that fills</p>
+                <p class="card__desc">Just text and a rule. The rule rises into a full block on hover.</p>
+            </li>
+
+            <li class="card">
+                <p class="card__id">G</p>
+                <div class="card__demo">
+                    <button class="bx bx--arrow" type="button" data-name="G Solid with arrow">
+                        Learn more
+                        <svg class="bx__arrow" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="square"><path d="M4 12h16M14 6l6 6-6 6"/></svg>
+                    </button>
+                </div>
+                <p class="card__name">Solid with arrow</p>
+                <p class="card__desc">Accent fill. The arrow slides right on hover, like the footer links.</p>
+            </li>
+
+            <li class="card">
+                <p class="card__id">H</p>
+                <div class="card__demo"><button class="bx bx--tint" type="button" data-name="H Tinted">Learn more</button></div>
+                <p class="card__name">Tinted</p>
+                <p class="card__desc">Soft accent tint with a bar on the left. Same tint as the note highlights.</p>
+            </li>
+
+            <li class="card">
+                <p class="card__id">I</p>
+                <div class="card__demo"><button class="bx bx--sweep" type="button" data-name="I Sweep fill">Learn more</button></div>
+                <p class="card__name">Sweep fill</p>
+                <p class="card__desc">Outline button. The fill sweeps in from the left on hover.</p>
+            </li>
+
+            <li class="card">
+                <p class="card__id">J</p>
+                <div class="card__demo"><button class="bx bx--ring" type="button" data-name="J Double ring">Learn more</button></div>
+                <p class="card__name">Double ring</p>
+                <p class="card__desc">Accent fill with a thin offset ring around it. The ring grows on hover.</p>
+            </li>
+
+            <li class="card">
+                <p class="card__id">K</p>
+                <div class="card__demo"><button class="bx bx--mono" type="button" data-name="K Black and white solid">Learn more</button></div>
+                <p class="card__name">Black and white solid</p>
+                <p class="card__desc">Theme-colored fill. Turns to the accent on hover.</p>
+            </li>
+
+            <li class="card">
+                <p class="card__id">L</p>
+                <div class="card__demo">
+                    <button class="bx bx--split" type="button" data-name="L Split with icon">
+                        <span class="bx__label">Learn more</span>
+                        <span class="bx__icon">
+                            <svg class="bx__arrow" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="square"><path d="M4 12h16M14 6l6 6-6 6"/></svg>
+                        </span>
+                    </button>
+                </div>
+                <p class="card__name">Split with icon</p>
+                <p class="card__desc">Label plus an accent block holding the arrow. The label tints on hover.</p>
+            </li>
+        </ol>
+
+        <section class="pair" aria-labelledby="pair-title">
+            <h2 id="pair-title" class="pair__title">The chosen pair: B and C</h2>
+            <p class="pair__desc">Two buttons together: C is the accent outline in the article color, and B is the flat solid in the website theme colors (black on light, white on dark). Hover and press each one, and try the accent swatches to see only C change.</p>
+            <div class="btn-row">
+                <button class="btn" type="button">Apply now</button>
+                <button class="btn btn--solid" type="button">Learn more</button>
+            </div>
+        </section>
+    </main>
+</body>
+</html>

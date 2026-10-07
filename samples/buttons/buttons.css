@@ -1,0 +1,425 @@
+/* Button options. Loaded after shared/styles.css. Every variation uses the
+   page accent (--c-spot), square corners and the theme colors, so they all
+   work in light and dark. Class names: .bx (base) plus one .bx--name. */
+
+/* ---------- Accent choices for the preview ---------- */
+/* Same hues and dark versions used on the other pages. Red is the default. */
+:root[data-accent='blue']  { --c-spot: #1f6fd1; --focus: #0a3a7a; }
+:root[data-accent='pink']  { --c-spot: #e0457b; --focus: #8f1f48; }
+:root[data-accent='lilac'] { --c-spot: #894dcb; --focus: #4b2a8a; }
+
+:root[data-accent='blue'][data-theme='dark']  { --c-spot: #5ea1f2; --focus: #b5d4fb; }
+:root[data-accent='pink'][data-theme='dark']  { --c-spot: #f25f92; --focus: #ffc2d8; }
+:root[data-accent='lilac'][data-theme='dark'] { --c-spot: #af75f0; --focus: #d9c2fb; }
+
+/* ---------- Page layout ---------- */
+
+.page-head {
+    padding: clamp(var(--space-6), 6vw, var(--space-8)) 0 var(--space-5);
+}
+
+.page-title {
+    margin: 0;
+    font-size: var(--fs-title);
+    font-weight: 800;
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+}
+
+.page-title span {
+    display: block;
+    color: var(--c-spot);
+}
+
+.page-sub {
+    max-width: 62ch;
+    margin: var(--space-4) 0 0;
+    color: var(--text-muted);
+}
+
+.visually-hidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+}
+
+/* ---------- Controls ---------- */
+
+.controls {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--space-3) var(--space-6);
+    padding: var(--space-4) 0;
+    border-block: 1px solid var(--border);
+}
+
+.control {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-3);
+}
+
+.control__label {
+    font-size: 0.85rem;
+    font-weight: 700;
+}
+
+.control--check {
+    font-size: 0.95rem;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.accents {
+    display: inline-flex;
+    gap: var(--space-2);
+}
+
+.accent {
+    width: 1.75rem;
+    height: 1.75rem;
+    padding: 0;
+    border: 2px solid var(--border);
+    border-radius: 0;
+    background: var(--c);
+    cursor: pointer;
+}
+
+.accent[aria-pressed='true'] {
+    border-color: var(--text);
+    outline: 2px solid var(--bg);
+    outline-offset: -4px;
+}
+
+.status {
+    flex: 1 1 100%;
+    margin: 0;
+    min-height: 1.6em;
+    color: var(--text-muted);
+    font-size: var(--fs-small);
+}
+
+@media (min-width: 900px) {
+    .status {
+        flex: 1;
+        text-align: right;
+    }
+}
+
+/* ---------- Cards ---------- */
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 280px), 1fr));
+    gap: var(--space-5);
+    margin: var(--space-6) 0 var(--space-8);
+    padding: 0;
+    list-style: none;
+}
+
+.card {
+    display: flex;
+    flex-direction: column;
+    padding: var(--space-4) var(--space-4) var(--space-5);
+    border: 1px solid var(--border);
+    background: var(--surface);
+}
+
+.card__id {
+    margin: 0;
+    color: var(--c-spot);
+    font-weight: 800;
+}
+
+.card__demo {
+    display: grid;
+    place-items: center;
+    min-height: 7rem;
+    padding: var(--space-4) 0;
+}
+
+.card__name {
+    margin: 0;
+    font-weight: 700;
+}
+
+.card__desc {
+    margin: var(--space-1) 0 0;
+    color: var(--text-muted);
+    font-size: var(--fs-small);
+    line-height: 1.5;
+}
+
+/* ---------- Button base ---------- */
+
+.bx {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.6rem;
+    min-height: 44px;
+    padding: 0.7rem 1.6rem;
+    border: 2px solid transparent;
+    border-radius: 0;
+    background: transparent;
+    color: var(--text);
+    font-size: 1rem;
+    font-weight: 700;
+    line-height: 1.2;
+    text-decoration: none;
+    cursor: pointer;
+    transition:
+        background-color 0.18s ease,
+        color 0.18s ease,
+        border-color 0.18s ease,
+        box-shadow 0.15s ease,
+        transform 0.12s ease,
+        background-size 0.3s ease;
+}
+
+.bx:disabled {
+    opacity: 0.45;
+    cursor: not-allowed;
+}
+
+.bx__arrow {
+    width: 1em;
+    height: 1em;
+    flex: none;
+    transition: transform 0.25s ease;
+}
+
+/* Large size (toggle) */
+.grid--large .bx {
+    min-height: 56px;
+    padding: 1rem 2.2rem;
+    font-size: 1.15rem;
+}
+
+.grid--large .bx--split {
+    padding: 0;
+}
+
+/* A. Solid with hard shadow */
+.bx--shadow {
+    background: var(--c-spot);
+    border-color: var(--text);
+    color: var(--on-accent);
+    box-shadow: 4px 4px 0 var(--text);
+}
+
+.bx--shadow:not(:disabled):hover {
+    transform: translate(2px, 2px);
+    box-shadow: 2px 2px 0 var(--text);
+}
+
+.bx--shadow:not(:disabled):active {
+    transform: translate(4px, 4px);
+    box-shadow: 0 0 0 var(--text);
+}
+
+/* B. Flat solid */
+.bx--flat {
+    background: var(--c-spot);
+    color: var(--on-accent);
+}
+
+.bx--flat:not(:disabled):hover {
+    background: color-mix(in srgb, var(--c-spot) 82%, var(--text));
+}
+
+.bx--flat:not(:disabled):active {
+    background: color-mix(in srgb, var(--c-spot) 68%, var(--text));
+}
+
+/* C. Accent outline */
+.bx--outline {
+    border-color: var(--c-spot);
+    color: var(--c-spot);
+}
+
+.bx--outline:not(:disabled):hover {
+    background: var(--c-spot);
+    color: var(--on-accent);
+}
+
+.bx--outline:not(:disabled):active {
+    background: color-mix(in srgb, var(--c-spot) 80%, var(--text));
+    border-color: color-mix(in srgb, var(--c-spot) 80%, var(--text));
+    color: var(--on-accent);
+}
+
+/* D. Black and white outline that inverts */
+.bx--invert {
+    border-color: var(--text);
+}
+
+.bx--invert:not(:disabled):hover {
+    background: var(--text);
+    color: var(--bg);
+}
+
+.bx--invert:not(:disabled):active {
+    background: var(--text-muted);
+    border-color: var(--text-muted);
+    color: var(--bg);
+}
+
+/* E. Card with accent shadow */
+.bx--card {
+    background: var(--surface);
+    border-color: var(--text);
+    box-shadow: 5px 5px 0 var(--c-spot);
+}
+
+.bx--card:not(:disabled):hover {
+    transform: translate(3px, 3px);
+    box-shadow: 2px 2px 0 var(--c-spot);
+}
+
+.bx--card:not(:disabled):active {
+    transform: translate(5px, 5px);
+    box-shadow: 0 0 0 var(--c-spot);
+}
+
+/* F. Underline that fills */
+.bx--slide {
+    padding-inline: 1.1rem;
+    background-image: linear-gradient(var(--c-spot), var(--c-spot));
+    background-repeat: no-repeat;
+    background-position: 0 100%;
+    background-size: 100% 3px;
+}
+
+.bx--slide:not(:disabled):hover {
+    background-size: 100% 100%;
+    color: var(--on-accent);
+}
+
+/* G. Solid with arrow */
+.bx--arrow {
+    background: var(--c-spot);
+    color: var(--on-accent);
+}
+
+.bx--arrow:not(:disabled):hover {
+    background: color-mix(in srgb, var(--c-spot) 85%, var(--text));
+}
+
+.bx--arrow:not(:disabled):hover .bx__arrow {
+    transform: translateX(5px);
+}
+
+/* H. Tinted */
+.bx--tint {
+    border-left: 4px solid var(--c-spot);
+    background: color-mix(in srgb, var(--c-spot) var(--tint), transparent);
+}
+
+.bx--tint:not(:disabled):hover {
+    background: color-mix(in srgb, var(--c-spot) var(--tint-strong), transparent);
+}
+
+/* I. Sweep fill */
+.bx--sweep {
+    border-color: var(--c-spot);
+    background-image: linear-gradient(var(--c-spot), var(--c-spot));
+    background-repeat: no-repeat;
+    background-position: 0 0;
+    background-size: 0% 100%;
+    color: var(--c-spot);
+    transition: background-size 0.35s cubic-bezier(0.25, 0.8, 0.25, 1), color 0.35s ease;
+}
+
+.bx--sweep:not(:disabled):hover {
+    background-size: 100% 100%;
+    color: var(--on-accent);
+}
+
+/* J. Double ring */
+.bx--ring {
+    background: var(--c-spot);
+    color: var(--on-accent);
+    box-shadow: 0 0 0 3px var(--bg), 0 0 0 5px var(--c-spot);
+}
+
+.bx--ring:not(:disabled):hover {
+    box-shadow: 0 0 0 4px var(--bg), 0 0 0 7px var(--c-spot);
+}
+
+.bx--ring:not(:disabled):active {
+    box-shadow: 0 0 0 2px var(--bg), 0 0 0 3px var(--c-spot);
+}
+
+/* K. Black and white solid */
+.bx--mono {
+    background: var(--text);
+    color: var(--bg);
+}
+
+.bx--mono:not(:disabled):hover {
+    background: var(--c-spot);
+    color: var(--on-accent);
+}
+
+/* L. Split with icon */
+.bx--split {
+    gap: 0;
+    padding: 0;
+    border-color: var(--text);
+    background: var(--surface);
+}
+
+.bx__label {
+    padding: 0.7rem 1.3rem;
+    transition: background-color 0.18s ease;
+}
+
+.bx__icon {
+    display: grid;
+    place-items: center;
+    align-self: stretch;
+    padding: 0 1rem;
+    border-left: 2px solid var(--text);
+    background: var(--c-spot);
+    color: var(--on-accent);
+}
+
+.bx--split:not(:disabled):hover .bx__label {
+    background: color-mix(in srgb, var(--c-spot) var(--tint), transparent);
+}
+
+.bx--split:not(:disabled):hover .bx__arrow {
+    transform: translateX(4px);
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .bx,
+    .bx__arrow,
+    .bx__label {
+        transition: none;
+    }
+}
+
+/* ---------- Chosen pair ---------- */
+
+.pair {
+    margin: 0 0 var(--space-8);
+    padding: var(--space-5);
+    border: 1px solid var(--border);
+    background: var(--surface);
+}
+
+.pair__title {
+    margin: 0;
+    font-size: var(--fs-h2);
+}
+
+.pair__desc {
+    max-width: 62ch;
+    margin: var(--space-2) 0 var(--space-4);
+    color: var(--text-muted);
+}

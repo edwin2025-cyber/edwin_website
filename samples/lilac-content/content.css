@@ -1,0 +1,410 @@
+/* Lilac content styles: blockquotes, lists, code and tables.
+   Loaded after shared/styles.css. Colors follow --c-spot, so swapping the
+   accent re-colors everything here. */
+
+/* ---------- Lilac accent ---------- */
+/* Light: H 268, S 55%, L 55% (5.3:1 on white). Dark: same hue, lighter. */
+:root {
+    --c-spot: #894dcb;
+    --focus: #4b2a8a;
+
+    --font-mono: ui-monospace, 'Cascadia Code', 'SF Mono', Consolas, 'Liberation Mono', monospace;
+
+    /* Code token colors */
+    --tok-string: #a02a63;
+    --tok-comment: var(--text-muted);
+}
+
+:root[data-theme='dark'] {
+    --c-spot: #af75f0;                /* H 268, S 80%, L 70% (6.3:1 on #0a0a0a) */
+    --focus: #d9c2fb;
+    --tok-string: #ff9cc4;
+}
+
+/* Small label above each variation */
+.label {
+    margin: 1.75rem 0 0.4rem;
+    color: var(--text-muted);
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+}
+
+/* ---------- Blockquotes ---------- */
+
+.article_body blockquote {
+    margin: 0 0 1.5rem;
+    padding: 1rem 1.25rem;
+    border-left: 4px solid var(--c-spot);
+    border-radius: 0;
+    background: color-mix(in srgb, var(--c-spot) var(--wash), transparent);
+    font-size: 1.15rem;
+    font-weight: 500;
+    line-height: 1.5;
+}
+
+.article_body blockquote p {
+    margin: 0;
+}
+
+.article_body blockquote footer {
+    margin-top: 0.75rem;
+    color: var(--text-muted);
+    font-size: 0.9rem;
+    font-weight: 450;
+}
+
+.article_body blockquote cite {
+    font-style: normal;
+}
+
+.article_body blockquote cite::before {
+    content: '\2014\00a0';
+}
+
+/* Quiet: just the bar */
+.article_body .quote--quiet {
+    padding: 0.25rem 1.25rem;
+    background: transparent;
+    border-left-width: 3px;
+    color: var(--text-muted);
+}
+
+/* Pull quote: centered, large, ruled above and below */
+.article_body .quote--pull {
+    margin: 2rem 0;
+    padding: 1.75rem 1rem 1.5rem;
+    border: 0;
+    border-block: 2px solid var(--text);
+    background: transparent;
+    text-align: center;
+    font-size: clamp(1.4rem, 4vw, 2rem);
+    font-weight: 700;
+    line-height: 1.25;
+}
+
+.article_body .quote--pull::before {
+    content: '\201C';
+    display: block;
+    margin-bottom: -0.1em;
+    color: var(--c-spot);
+    font-size: 3.5rem;
+    line-height: 0.8;
+}
+
+/* ---------- Lists ---------- */
+
+.article_body .list {
+    margin: 0 0 1.25rem;
+    padding: 0;
+    list-style: none;
+}
+
+.article_body .list li {
+    position: relative;
+    padding-left: 1.5rem;
+    margin-bottom: 0.4rem;
+}
+
+/* Square bullet */
+.article_body .list:not(.list--numbered):not(.checklist) > li::before {
+    content: '';
+    position: absolute;
+    left: 0.1rem;
+    top: 0.6em;
+    width: 0.5rem;
+    height: 0.5rem;
+    background: var(--c-spot);
+}
+
+/* Nested: hollow square */
+.article_body .list ul {
+    margin: 0.4rem 0 0.2rem;
+    padding: 0;
+    list-style: none;
+}
+
+.article_body .list ul > li::before {
+    content: '';
+    position: absolute;
+    left: 0.1rem;
+    top: 0.6em;
+    width: 0.45rem;
+    height: 0.45rem;
+    border: 1.5px solid var(--c-spot);
+}
+
+/* Numbered: accent numerals like the glossary */
+.article_body .list--numbered {
+    counter-reset: item;
+}
+
+.article_body .list--numbered > li {
+    counter-increment: item;
+    padding-left: 2.75rem;
+}
+
+.article_body .list--numbered > li::before {
+    content: counter(item, decimal-leading-zero);
+    position: absolute;
+    left: 0;
+    color: var(--c-spot);
+    font-weight: 800;
+    font-variant-numeric: tabular-nums;
+}
+
+/* Checklist */
+.article_body .checklist > li {
+    padding-left: 0;
+}
+
+.article_body .checklist label {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    cursor: pointer;
+}
+
+.article_body .checklist input {
+    width: 1.1rem;
+    height: 1.1rem;
+    margin: 0;
+}
+
+/* Definitions */
+.defs {
+    margin: 0 0 1.5rem;
+    border-top: 1px solid var(--text);
+}
+
+.defs > div {
+    display: grid;
+    grid-template-columns: minmax(6rem, 10rem) 1fr;
+    gap: 0.25rem 1.25rem;
+    padding: 0.75rem 0;
+    border-bottom: 1px solid var(--border);
+}
+
+.defs dt {
+    color: var(--c-spot);
+    font-weight: 800;
+}
+
+.defs dd {
+    margin: 0;
+}
+
+@media (max-width: 640px) {
+    .defs > div {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* ---------- Code ---------- */
+
+.article_body code,
+.article_body kbd,
+.article_body pre {
+    font-family: var(--font-mono);
+}
+
+/* Inline code */
+.article_body :not(pre) > code {
+    padding: 1px 6px;
+    background: color-mix(in srgb, var(--c-spot) var(--wash), transparent);
+    border-bottom: 1px solid color-mix(in srgb, var(--c-spot) 55%, transparent);
+    font-size: 0.88em;
+    font-weight: 500;
+    word-break: break-word;
+}
+
+/* Keyboard keys */
+.article_body kbd {
+    display: inline-block;
+    padding: 0 0.45em;
+    border: 1px solid var(--text-muted);
+    border-bottom-width: 3px;
+    background: var(--surface);
+    font-size: 0.82em;
+    font-weight: 600;
+    line-height: 1.5;
+}
+
+/* Code block */
+.codeblock {
+    margin: 0 0 1.5rem;
+    border: 1px solid var(--border);
+    border-left: 4px solid var(--c-spot);
+    background: color-mix(in srgb, var(--text) 4%, var(--bg));
+}
+
+.codeblock__bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.4rem 0.5rem 0.4rem 1rem;
+    border-bottom: 1px solid var(--border);
+}
+
+.codeblock__name {
+    color: var(--text-muted);
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+}
+
+.codeblock__copy {
+    padding: 0.2rem 0.7rem;
+    border: 2px solid var(--c-spot);
+    border-radius: 0;
+    background: transparent;
+    color: var(--c-spot);
+    font-size: 0.78rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background-color 0.15s ease, color 0.15s ease, border-color 0.15s ease;
+}
+
+.codeblock__copy:hover {
+    background: var(--c-spot);
+    color: var(--on-accent);
+}
+
+.codeblock__copy.is-copied {
+    background: var(--c-spot);
+    border-color: var(--c-spot);
+    color: var(--on-accent);
+}
+
+.codeblock pre {
+    margin: 0;
+    padding: 1rem;
+    overflow-x: auto;
+    font-size: 0.88rem;
+    line-height: 1.65;
+    tab-size: 4;
+}
+
+.codeblock code {
+    font-weight: 450;
+}
+
+/* Syntax colors */
+.tok-k { color: var(--c-spot); font-weight: 700; }   /* keywords, tags */
+.tok-a { color: var(--text); font-weight: 600; }      /* attributes, properties */
+.tok-s { color: var(--tok-string); }                  /* strings, values */
+.tok-f { color: var(--c-spot); }                      /* functions */
+.tok-c { color: var(--tok-comment); font-style: italic; }
+
+/* ---------- Tables ---------- */
+
+.table-wrap {
+    margin: 0 0 2rem;
+    overflow-x: auto;
+}
+
+.table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.95rem;
+    font-variant-numeric: tabular-nums;
+}
+
+.table caption {
+    padding-bottom: 0.6rem;
+    text-align: left;
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+}
+
+.table th,
+.table td {
+    padding: 0.65rem 0.85rem;
+    text-align: left;
+    vertical-align: middle;
+    white-space: nowrap;
+}
+
+.table thead th {
+    border-bottom: 2px solid var(--text);
+    font-weight: 700;
+}
+
+.table tbody th {
+    font-weight: 700;
+}
+
+.table tbody tr {
+    border-bottom: 1px solid var(--border);
+    transition: background-color 0.15s ease;
+}
+
+.table tbody tr:hover {
+    background: color-mix(in srgb, var(--c-spot) var(--wash), transparent);
+}
+
+.table .num {
+    text-align: right;
+}
+
+/* Color swatch */
+.swatch {
+    display: inline-block;
+    width: 0.95rem;
+    height: 0.95rem;
+    margin-right: 0.55rem;
+    vertical-align: -0.12em;
+    background: var(--c);
+    border: 1px solid var(--text-muted);
+}
+
+/* Sortable headings */
+.sort {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0;
+    border: 0;
+    background: transparent;
+    font: inherit;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.sort::after {
+    content: '\2195';
+    color: var(--text-muted);
+    font-size: 0.85em;
+    transition: color 0.15s ease;
+}
+
+.sort:hover::after,
+th[aria-sort='ascending'] .sort::after,
+th[aria-sort='descending'] .sort::after {
+    color: var(--c-spot);
+}
+
+th[aria-sort='ascending'] .sort::after {
+    content: '\2191';
+}
+
+th[aria-sort='descending'] .sort::after {
+    content: '\2193';
+}
+
+/* Scroll boxes get a focus ring so keyboard users can scroll them */
+.table-wrap:focus-visible {
+    outline: 2px solid var(--focus);
+    outline-offset: 3px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .table tbody tr,
+    .codeblock__copy,
+    .sort::after {
+        transition: none;
+    }
+}

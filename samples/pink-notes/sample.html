@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="color-scheme" content="light dark">
+    <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
+    <meta name="theme-color" content="#0a0a0a" media="(prefers-color-scheme: dark)">
+    <title>Pink Notes Sample</title>
+
+    <!-- Apply the saved theme before first paint to avoid a flash -->
+    <script>
+        (function () {
+            var saved = null;
+            try { saved = localStorage.getItem('theme'); } catch (e) {}
+            var dark = saved ? saved === 'dark' : window.matchMedia('(prefers-color-scheme: dark)').matches;
+            document.documentElement.setAttribute('data-theme', dark ? 'dark' : 'light');
+        })();
+    </script>
+
+    <link rel="stylesheet" href="sample.css">
+    <script src="../../shared/theme.js" defer></script>
+    <script src="../../shared/notes.js" defer></script>
+</head>
+<body>
+    <header class="site-header">
+        <div class="wrap header-inner">
+            <span class="site-title">Pink Notes Sample</span>
+            <button id="theme-toggle" class="theme-toggle" type="button" aria-label="Toggle dark mode"></button>
+        </div>
+    </header>
+
+    <main class="wrap article">
+        <h1 class="title">Four ways to remember Alabama</h1>
+        <p class="lede">
+            Hover a pink term to see its note, then hover a glossary entry at the bottom to see the term light up.
+            Every note is stored in <strong>notes.json</strong>, not in this file.
+        </p>
+
+        <p>
+            The state rises to its highest point at
+            <span class="note" data-key="cheaha">Cheaha Mountain</span>
+            and then rolls south across the
+            <span class="note" data-key="black-belt">Black Belt</span>
+            toward the Gulf.
+        </p>
+
+        <p>
+            In the north, engineers at the
+            <span class="note" data-key="marshall">Marshall Space Flight Center</span>
+            built the rockets that reached the Moon. On the coast, locals wait for a
+            <span class="note" data-key="jubilee">jubilee</span>
+            on summer mornings. And the same
+            <span class="note" data-key="cheaha">Cheaha Mountain</span>
+            note can be reused anywhere, because it is just a key.
+        </p>
+
+        <section class="glossary" aria-labelledby="glossary-title">
+            <h2 id="glossary-title" class="glossary__title">Glossary</h2>
+            <ul class="glossary__list"></ul>
+        </section>
+    </main>
+</body>
+</html>

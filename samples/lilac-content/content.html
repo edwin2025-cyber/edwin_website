@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="color-scheme" content="light dark">
+    <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
+    <meta name="theme-color" content="#0a0a0a" media="(prefers-color-scheme: dark)">
+    <title>Lilac Content Styles</title>
+
+    <!-- Apply the saved theme before first paint to avoid a flash -->
+    <script>
+        (function () {
+            var saved = null;
+            try { saved = localStorage.getItem('theme'); } catch (e) {}
+            var dark = saved ? saved === 'dark' : window.matchMedia('(prefers-color-scheme: dark)').matches;
+            document.documentElement.setAttribute('data-theme', dark ? 'dark' : 'light');
+        })();
+    </script>
+
+    <link rel="preload" href="../../fonts/Satoshi_Complete (1)/Satoshi_Complete/Fonts/WEB/fonts/Satoshi-Variable.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="stylesheet" href="../../shared/styles.css">
+    <link rel="stylesheet" href="content.css">
+    <script src="../../shared/theme.js" defer></script>
+    <script src="../../shared/links.js" defer></script>
+    <script src="content.js" defer></script>
+</head>
+<body>
+    <header class="site-header">
+        <div class="container header-inner">
+            <nav class="site-nav" aria-label="Main"></nav>
+            <button id="theme-toggle" class="theme-toggle" type="button" aria-label="Toggle dark mode"></button>
+        </div>
+    </header>
+
+    <main>
+        <article class="article">
+            <header class="article_header">
+                <h1 class="article_title">Content styles <span>in lilac</span></h1>
+                <p class="article_meta">Blockquotes, lists, code and tables. Each one shows a few variations you can pick from.</p>
+            </header>
+
+            <div class="article_body">
+                <p>
+                    These are the pieces that go inside an article besides plain paragraphs. Hover, click and scroll around, and toggle the
+                    theme to see both versions. Everything here follows the lilac accent. Read more about
+                    <a class="link" href="https://developer.mozilla.org/en-US/docs/Web/HTML">HTML elements</a>
+                    if you want the full list.
+                </p>
+
+                <!-- ============ BLOCKQUOTES ============ -->
+                <h2>Blockquotes</h2>
+                <p>A blockquote sets a quotation apart from your own words. Three variations:</p>
+
+                <p class="label">Standard</p>
+                <blockquote>
+                    <p>A good page explains itself before anyone has to ask a question about it.</p>
+                    <footer><cite>Style guide note</cite></footer>
+                </blockquote>
+
+                <p class="label">Quiet (just a bar, no fill)</p>
+                <blockquote class="quote--quiet">
+                    <p>Keep the rule thin and let the words carry the weight.</p>
+                </blockquote>
+
+                <p class="label">Pull quote (centered, large)</p>
+                <blockquote class="quote--pull">
+                    <p>Small details are what make a site feel like yours.</p>
+                </blockquote>
+
+                <!-- ============ LISTS ============ -->
+                <h2>Lists</h2>
+                <p class="label">Bulleted (square bullets, no rounded corners)</p>
+                <ul class="list">
+                    <li>Plain items stay easy to scan</li>
+                    <li>
+                        Nested lists use hollow squares
+                        <ul>
+                            <li>A second level</li>
+                            <li>Another second-level item</li>
+                        </ul>
+                    </li>
+                    <li>Back to the first level</li>
+                </ul>
+
+                <p class="label">Numbered (matches the glossary numbers)</p>
+                <ol class="list list--numbered">
+                    <li>Choose a color for the page accent.</li>
+                    <li>Derive the dark-theme version with the same hue.</li>
+                    <li>Check contrast against both backgrounds.</li>
+                </ol>
+
+                <p class="label">Checklist (checkboxes use the accent)</p>
+                <ul class="list checklist">
+                    <li><label><input type="checkbox" checked> Light theme colors</label></li>
+                    <li><label><input type="checkbox" checked> Dark theme colors</label></li>
+                    <li><label><input type="checkbox"> Print styles</label></li>
+                </ul>
+
+                <p class="label">Definitions</p>
+                <dl class="defs">
+                    <div><dt>Accent</dt><dd>The one color a page uses for links, highlights and buttons.</dd></div>
+                    <div><dt>Tint</dt><dd>The accent mixed with transparency, used for soft backgrounds.</dd></div>
+                    <div><dt>Wash</dt><dd>An even lighter tint, used for hover rows and linked entries.</dd></div>
+                </dl>
+
+                <!-- ============ CODE ============ -->
+                <h2>Code</h2>
+                <p>
+                    Inline code looks like <code>--c-spot</code> or <code>color-mix()</code>. Keyboard keys look like
+                    <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>R</kbd>. Longer code goes in a block with a label and a copy button.
+                </p>
+
+                <div class="codeblock">
+                    <div class="codeblock__bar">
+                        <span class="codeblock__name">index.html</span>
+                        <button class="codeblock__copy" type="button">Copy</button>
+                    </div>
+<pre><code><span class="tok-c">&lt;!-- A term with a glossary note --&gt;</span>
+&lt;<span class="tok-k">span</span> <span class="tok-a">class</span>=<span class="tok-s">"note"</span> <span class="tok-a">data-key</span>=<span class="tok-s">"mites"</span>&gt;MITES&lt;/<span class="tok-k">span</span>&gt;</code></pre>
+                </div>
+
+                <div class="codeblock">
+                    <div class="codeblock__bar">
+                        <span class="codeblock__name">styles.css</span>
+                        <button class="codeblock__copy" type="button">Copy</button>
+                    </div>
+<pre><code><span class="tok-c">/* The accent, softened into a tint */</span>
+<span class="tok-k">.note</span> {
+    <span class="tok-a">background</span>: <span class="tok-f">color-mix</span>(in srgb, var(--c-spot) <span class="tok-s">14%</span>, transparent);
+}</code></pre>
+                </div>
+
+                <div class="codeblock">
+                    <div class="codeblock__bar">
+                        <span class="codeblock__name">script.js</span>
+                        <button class="codeblock__copy" type="button">Copy</button>
+                    </div>
+<pre><code><span class="tok-c">// Load the notes, then build the page</span>
+<span class="tok-k">const</span> res = <span class="tok-k">await</span> <span class="tok-f">fetch</span>(<span class="tok-s">'notes.json'</span>);
+<span class="tok-k">const</span> notes = <span class="tok-k">await</span> res.<span class="tok-f">json</span>();</code></pre>
+                </div>
+
+                <!-- ============ TABLES ============ -->
+                <h2>Tables</h2>
+                <p>
+                    Tables get a heavy rule under the header, light rules between rows and a tinted row on hover. Wide tables scroll
+                    sideways inside their own box instead of breaking the page. Click a column heading below to sort it.
+                </p>
+
+                <div class="table-wrap" tabindex="0" role="region" aria-labelledby="tokens-caption">
+                    <table class="table table--sortable">
+                        <caption id="tokens-caption">Theme colors</caption>
+                        <thead>
+                            <tr>
+                                <th scope="col" aria-sort="none"><button class="sort" type="button">Token</button></th>
+                                <th scope="col">Light</th>
+                                <th scope="col">Dark</th>
+                                <th scope="col">Used for</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <th scope="row">Background</th>
+                                <td><span class="swatch" style="--c: #ffffff"></span>#ffffff</td>
+                                <td><span class="swatch" style="--c: #0a0a0a"></span>#0a0a0a</td>
+                                <td>Page background</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Text</th>
+                                <td><span class="swatch" style="--c: #000000"></span>#000000</td>
+                                <td><span class="swatch" style="--c: #ffffff"></span>#ffffff</td>
+                                <td>Body text, headings</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Muted gray</th>
+                                <td><span class="swatch" style="--c: #6b5f65"></span>#6b5f65</td>
+                                <td><span class="swatch" style="--c: #a3a3a3"></span>#a3a3a3</td>
+                                <td>Captions, secondary text</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Surface</th>
+                                <td><span class="swatch" style="--c: #ffffff"></span>#ffffff</td>
+                                <td><span class="swatch" style="--c: #141414"></span>#141414</td>
+                                <td>Header, corner card</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Accent (lilac)</th>
+                                <td><span class="swatch" style="--c: #894dcb"></span>#894dcb</td>
+                                <td><span class="swatch" style="--c: #af75f0"></span>#af75f0</td>
+                                <td>Links, highlights, buttons</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Focus ring</th>
+                                <td><span class="swatch" style="--c: #4b2a8a"></span>#4b2a8a</td>
+                                <td><span class="swatch" style="--c: #d9c2fb"></span>#d9c2fb</td>
+                                <td>Keyboard focus outline</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="table-wrap" tabindex="0" role="region" aria-labelledby="type-caption">
+                    <table class="table">
+                        <caption id="type-caption">Type scale (numbers align right)</caption>
+                        <thead>
+                            <tr>
+                                <th scope="col">Element</th>
+                                <th scope="col" class="num">Size</th>
+                                <th scope="col" class="num">Weight</th>
+                                <th scope="col" class="num">Line height</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr><th scope="row">Page title</th><td class="num">2.4 to 4 rem</td><td class="num">800</td><td class="num">1.05</td></tr>
+                            <tr><th scope="row">Section heading</th><td class="num">1.5 rem</td><td class="num">700</td><td class="num">1.25</td></tr>
+                            <tr><th scope="row">Article text</th><td class="num">1.1 rem</td><td class="num">450</td><td class="num">1.6</td></tr>
+                            <tr><th scope="row">Caption</th><td class="num">0.85 rem</td><td class="num">450</td><td class="num">1.4</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <p class="cta"><button class="btn" type="button">Looks good</button></p>
+            </div>
+        </article>
+    </main>
+</body>
+</html>
